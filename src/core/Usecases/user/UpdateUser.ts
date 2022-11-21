@@ -7,6 +7,7 @@ export type UserUpdatedInput = {
     userName: string,
     email: string,
     password: string,
+    updated:Date,
     userId: string
 }
 
@@ -17,15 +18,14 @@ export class UpdateUser implements UseCase<UserUpdatedInput, User> {
     }
 
     async execute(input: UserUpdatedInput): Promise<User> {
-        const user = await this.userRepository.getById(input.userId);
-        user.update({
+        const user = await this.userRepository.update({
             userName: input.userName,
             email: input.email,
             password: this.passwordGateway.encrypt(input.password),
-            updated: new Date()
+            updated: input.updated,
+            userId: input.userId
         });
 
-        const result = await this.userRepository.create(user);
-        return Promise.resolve(result);
+        return Promise.resolve(user);
     }
 }

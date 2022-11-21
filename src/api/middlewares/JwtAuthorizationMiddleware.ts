@@ -11,7 +11,8 @@ export function authorization(req, res, next) {
         req.user = {
             id: decodedJwt.id,
             userName: decodedJwt.userName,
-            email: decodedJwt.email
+            email: decodedJwt.email,
+            libraryId: decodedJwt.libraryId,
         };
         return next();
     } catch (error) {
