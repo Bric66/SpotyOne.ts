@@ -1,7 +1,5 @@
 import {Track} from "../Entities/Track";
 import {TrackUpdatedInput} from "../Usecases/track/UpdateTrack";
-import {TrackDeletedInput} from "../Usecases/track/DeleteTrack";
-
 
 export interface TrackRepository {
     create(input: Track): Promise<Track>;
@@ -10,6 +8,6 @@ export interface TrackRepository {
 
     update(input: TrackUpdatedInput): Promise<Track>;
 
-    delete(input: TrackDeletedInput): Promise<Track>;
+    delete(userId: string): string;
 
 }

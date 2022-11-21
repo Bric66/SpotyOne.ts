@@ -1,6 +1,5 @@
 import {User} from "../Entities/User";
 import {UserUpdatedInput} from "../Usecases/user/UpdateUser";
-import {UserDeletedInput} from "../Usecases/user/DeleteUser";
 import {AddAlbumInput} from "../Usecases/user/AddAlbumPropertiesToLibrary";
 import {AddTrackInput} from "../Usecases/user/AddTrackPropertiesToLibrary";
 import {RemoveAlbumInput} from "../Usecases/user/RemoveAlbumPropertiesToLibrary";
@@ -13,9 +12,7 @@ export interface UserRepository {
 
     getById(userId: string): Promise<User>;
 
-    update(input: UserUpdatedInput): Promise<User>;
-
-    delete(input: UserDeletedInput): Promise<User>;
+    delete(userId:string): string;
 
     addAlbum(input: AddAlbumInput): Promise<User>;
 

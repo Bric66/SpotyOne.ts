@@ -1,23 +1,14 @@
 import {UseCase} from "../Usecase";
-import {User} from "../../Entities/User";
 import {UserRepository} from "../../repositories/UserRepository";
 
-export type UserDeletedInput = {
+export class DeleteUser implements UseCase<string, string> {
 
-    userId: string
-}
-
-export class DeleteUser implements UseCase<UserDeletedInput, User> {
-
-    constructor(private readonly userRepository: UserRepository){
+    constructor(private readonly userRepository: UserRepository) {
     }
 
-    async execute(input: UserDeletedInput): Promise<User> {
+    execute(userId: string): string {
+        this.userRepository.delete(userId);
 
-        const user = await this.userRepository.delete({
-            userId: input.userId
-        });
-
-        return Promise.resolve(user);
+        return (userId);
     }
 }

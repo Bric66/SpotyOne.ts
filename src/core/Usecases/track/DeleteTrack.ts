@@ -2,21 +2,16 @@ import {UseCase} from "../Usecase";
 import {Track} from "../../Entities/Track";
 import {TrackRepository} from "../../repositories/TrackRepository";
 
-export type TrackDeletedInput = {
-    userId: string
-}
 
-export class DeleteUser implements UseCase<TrackDeletedInput, Track> {
+export class DeleteUser implements UseCase<string, string> {
 
-    constructor(private readonly userRepository: TrackRepository){
+    constructor(private readonly userRepository: TrackRepository) {
     }
 
-    async execute(input: TrackDeletedInput): Promise<Track> {
+    execute(userId: string): string {
 
-        const track = await this.userRepository.delete({
-            userId: input.userId
-        });
+        const track = this.userRepository.delete(userId);
 
-        return Promise.resolve(track);
+        return (userId);
     }
 }

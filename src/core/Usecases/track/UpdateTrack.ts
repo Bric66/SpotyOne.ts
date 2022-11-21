@@ -6,24 +6,23 @@ export type TrackUpdatedInput = {
     trackTitle: string;
     duration: number;
     file: string;
-    updated:Date;
+    updated: Date;
     userId: string
 }
 
 export class UpdateTrack implements UseCase<TrackUpdatedInput, Track> {
 
-    constructor(private readonly userRepository: TrackRepository,
+    constructor(private readonly trackRepository: TrackRepository,
     ) {
     }
 
     async execute(input: TrackUpdatedInput): Promise<Track> {
-
-        const track = await this.userRepository.update({
+        const track = await this.trackRepository.getByUserId(input.userId);
+        track.update({
             trackTitle: input.trackTitle,
             duration: input.duration,
             file: input.file,
             updated: new Date(),
-            userId: input.userId
         });
 
         return Promise.resolve(track);
