@@ -1,17 +1,49 @@
-import { AlbumProperties, TrackProperties } from "./Album";
+export type AlbumLibraryProperties = {
+  albumId: string;
+  title: string;
+  picture: string;
+}
+
+export type TrackLibraryProperties = {
+  trackId: string;
+  title: string;
+}
 
 export type LibraryProperties = {
-  ownerId: string;
-  albums: Array<AlbumProperties>;
-  tracks: Array<TrackProperties>;
+  userId: string;
+  libraryId: string;
+  title: string;
+  albums: Array<AlbumLibraryProperties>;
+  tracks: Array<TrackLibraryProperties>;
 };
 
+
 export class Library {
-  static create(arg0: { ownerId: string; album: AlbumProperties; track: TrackProperties; }) {
-      throw new Error('Method not implemented.');
-  }
   props: LibraryProperties;
   constructor(props: LibraryProperties) {
     this.props = props;
-  }
+  }  
+  
+  static create(props: { 
+    userId: string; 
+    libraryId: string;
+    title: string; }) {
+      return new Library({
+        userId: props.userId,
+        libraryId: props.libraryId,
+        title: props.title,
+        albums: [],
+        tracks: [],
+      })
+    }
+
+    update(props : {
+      title: string;
+      albums: Array<AlbumLibraryProperties>; 
+      tracks: Array<TrackLibraryProperties>; 
+    }) {
+      this.props.title = props.title;
+      this.props.albums = props.albums;
+      this.props.tracks = props.tracks;
+    }
 }
