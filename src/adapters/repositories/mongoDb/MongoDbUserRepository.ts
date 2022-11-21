@@ -1,12 +1,9 @@
 import {UserRepository} from "../../../core/repositories/UserRepository";
 import {User, UserProperties} from "../../../core/Entities/User";
-import {AddAlbumInput} from "../../../core/Usecases/user/AddAlbumPropertiesToLibrary";
-import {RemoveAlbumInput} from "../../../core/Usecases/user/RemoveAlbumPropertiesToLibrary";
-import {AddTrackInput} from "../../../core/Usecases/user/AddTrackPropertiesToLibrary";
-import {RemoveTrackInput} from "../../../core/Usecases/user/RemoveTrackPropertiesToLibrary";
 import {UserModel} from "./models/user";
+import {UserUpdatedInput} from "../../../core/Usecases/user/UpdateUser";
 
-export class mongoDbUserRepository implements UserRepository {
+export class MongoDbUserRepository implements UserRepository {
 
     async create(user: User): Promise<User> {
         const userModel = new UserModel(user.props);
@@ -50,16 +47,24 @@ export class mongoDbUserRepository implements UserRepository {
         return Promise.resolve(userFound);
     };
 
-    delete(userId: string): string {
-        UserModel.deleteOne({id: userId});
-        return userId;
+    async update(input: UserUpdatedInput): Promise<User> {
+        await UserModel.updateOne(
+            {userId: input.userId},
+            {
+                userName: input.userName,
+                email: input.email,
+                password: input.password,
+                updated: input.updated,
+                userId: input.userId
+            },
+            {upsert: true,}
+        ).then(() => console.log('User updated successfully'));
+        const result = await this.getById(input.userId);
+        return Promise.resolve(result);
     };
 
-    addAlbum(input: AddAlbumInput): Promise<User>;
-
-    removeAlbum(input: RemoveAlbumInput): Promise<User>;
-
-    addTrack(input: AddTrackInput): Promise<User>;
-
-    removeTrack(input: RemoveTrackInput): Promise<User>;
+    delete(userId: string): string {
+        UserModel.deleteOne({id: userId}).then(() => console.log('User deleted successfully'));
+        return userId;
+    };
 }
