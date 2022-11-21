@@ -9,6 +9,7 @@ export type CreateLibraryInput = {
     albums?: AlbumProperties;
     tracks?: TrackProperties;
     title: string;
+    userLibraryId: string;
 }
 
 export class CreateLibrary implements UseCase<CreateLibraryInput, Library> {
@@ -18,11 +19,11 @@ export class CreateLibrary implements UseCase<CreateLibraryInput, Library> {
         ) {}
 
       execute(input: CreateLibraryInput): Promise<Library> {
-        const id = this.idGateway.generate();
+
          const library = Library.create({
              userId: input.userId,
              title: input.title,
-             libraryId: id,
+             libraryId: input.userLibraryId,
          })
         this.libraryRepository.create(library)
         return Promise.resolve(library)

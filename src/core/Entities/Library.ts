@@ -46,4 +46,12 @@ export class Library {
       this.props.albums = props.albums;
       this.props.tracks = props.tracks;
     }
+
+    addAlbum(album: AlbumLibraryProperties) {
+      this.props.albums.push(album)
+    }
+
+    addTrack(track: TrackLibraryProperties) {
+      this.props.tracks.push(track)
+    }
 }

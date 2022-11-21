@@ -1,3 +1,6 @@
+import { AlbumProperties } from "./Album";
+import { TrackLibraryProperties } from "./Library";
+
 export type UserProperties = {
     id: string;
     userName: string;
@@ -32,7 +35,6 @@ export class User {
             libraryId: props.libraryId,
         })
     }
-
 
     update (props:{
         userName: string;

@@ -10,7 +10,7 @@ export type AlbumProperties = {
   tracksCount: number;
   totalDuration: number;
   tracks: Array<TrackProperties>;
-  ownerId: string;
+ userId: string;
 };
 
 export class Album {
@@ -26,11 +26,11 @@ export class Album {
     tracksCount: number;
     totalDuration: number;
     tracks: Array<TrackProperties>;
-    ownerId: string;
+    userId: string;
   }) {
     return new Album({
       albumId: props.albumId,
-      ownerId: props.ownerId,
+      userId: props.userId,
       albumTitle: props.albumTitle,
       file: props.file,
       tracksCount: props.tracks.length,

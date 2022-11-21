@@ -23,12 +23,14 @@ export class CreateUser implements UseCase<UserInput, User> {
             throw new Error('user already exists')
         }
         const id = this.idGateway.generate();
+        const libraryId = this.idGateway.generate();
         const hash = this.passwordGateway.encrypt(input.password)
         const user = User.create({
             id: id,
             userName: input.userName,
             email: input.email,
             password: hash,
+            libraryId: libraryId
         })
 
         const result = await this.userRepository.create(user);
