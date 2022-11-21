@@ -5,7 +5,7 @@ export type UserProperties = {
     password: string;
     created: Date;
     updated: Date;
-    library: [];
+    library: any[];
 }
 
 export class User {
@@ -31,6 +31,19 @@ export class User {
             library: [],
         })
     }
+
+
+    update (props:{
+        userName: string;
+        email: string;
+        password: string;
+        updated: Date;
+    }   )
+    {
+        this.props.userName=props.userName;
+        this.props.email=props.email;
+        this.props.password=props.password;
+        this.props.updated=props.updated;
+    }
 }
 
-//test
