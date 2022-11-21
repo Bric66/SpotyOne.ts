@@ -1,3 +1,6 @@
+import { AlbumProperties } from "./Album";
+import { TrackLibraryProperties } from "./Library";
+
 export type UserProperties = {
     id: string;
     userName: string;
@@ -5,7 +8,7 @@ export type UserProperties = {
     password: string;
     created: Date;
     updated: Date;
-    library: any[];
+    libraryId: string;
 }
 
 export class User {
@@ -20,6 +23,7 @@ export class User {
         userName: string;
         email: string;
         password: string;
+        libraryId: string;
     }) {
         return new User({
             id: props.id,
@@ -28,10 +32,9 @@ export class User {
             password: props.password,
             created: new Date(),
             updated: null,
-            library: [],
+            libraryId: props.libraryId,
         })
     }
-
 
     update (props:{
         userName: string;

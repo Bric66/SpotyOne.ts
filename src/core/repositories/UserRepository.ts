@@ -1,5 +1,4 @@
 import {User} from "../Entities/User";
-import {UserUpdatedInput} from "../Usecases/user/UpdateUser";
 import {AddAlbumInput} from "../Usecases/user/AddAlbumPropertiesToLibrary";
 import {AddTrackInput} from "../Usecases/user/AddTrackPropertiesToLibrary";
 import {RemoveAlbumInput} from "../Usecases/user/RemoveAlbumPropertiesToLibrary";
