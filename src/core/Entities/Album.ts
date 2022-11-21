@@ -1,8 +1,6 @@
 export type TrackProperties = {
   trackId: string;
   trackTitle: string;
-  duration: number;
-  file: string;
 };
 
 export type AlbumProperties = {
@@ -27,17 +25,17 @@ export class Album {
     file: string;
     tracksCount: number;
     totalDuration: number;
-    tracks: Array<TrackProperties>
+    tracks: Array<TrackProperties>;
     ownerId: string;
   }) {
     return new Album({
-        albumId: props.albumId,
-        ownerId: props.ownerId,
-        albumTitle: props.albumTitle,
-        file: props.file,
-        tracksCount: props.tracks.length,
-        totalDuration: props.totalDuration, // à terminé
-        tracks: props.tracks
+      albumId: props.albumId,
+      ownerId: props.ownerId,
+      albumTitle: props.albumTitle,
+      file: props.file,
+      tracksCount: props.tracks.length,
+      totalDuration: props.totalDuration / 60, // à terminé
+      tracks: props.tracks,
     });
   }
 
