@@ -1,6 +1,7 @@
 export type TrackProperties = {
     trackId: string;
     trackTitle: string;
+    artist: string;
     duration: number;
     file: string;
     created: Date;
@@ -18,6 +19,7 @@ export class Track {
     static create(props: {
         trackId: string;
         trackTitle: string;
+        artist: string;
         duration: number;
         file: string;
         userId: string;
@@ -25,6 +27,7 @@ export class Track {
         return new Track({
             trackId: props.trackId,
             trackTitle: props.trackTitle,
+            artist: props.artist,
             duration: props.duration,
             file: props.file,
             created: new Date(),
@@ -36,10 +39,12 @@ export class Track {
     update(props: {
         trackTitle: string;
         duration: number;
+        artist: string;
         file: string;
         updated: Date;
     }) {
         this.props.trackTitle = props.trackTitle;
+        this.props.artist   = props.artist;
         this.props.duration = props.duration;
         this.props.file = props.file;
         this.props.updated = props.updated;

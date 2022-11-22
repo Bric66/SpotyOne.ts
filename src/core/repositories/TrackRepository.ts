@@ -12,4 +12,6 @@ export interface TrackRepository {
 
     getById(trackId: string): Promise<Track>;
 
+    exist(trakcTitle: string, artist: string): Promise<Boolean> 
+
 }

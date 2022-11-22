@@ -1,24 +1,23 @@
+import { GetAlbumById } from './../../Usecases/album/GetAlbumById';
 import { InMemoryAlbumRespository } from './../adapters/repositories/InMemoryAlbumRespository';
 import { Album } from "../../Entities/Album"
-import { CreateAlbum } from "../../Usecases/album/CreateAlbum"
-import { UuidGateway } from '../adapters/gateways/UuidGateway';
+
 
 const db = new Map<string, Album>()
+describe('Unit - GetAlbumById', () => {
 
-describe('Unit - CreateAlbum', () => {
-    let createAlbum: CreateAlbum
+    let getAlbumById: GetAlbumById
     let album: Album
     
     beforeAll(() => {
         album = new Album({
-            albumId: "",
+            albumId: "12345",
             userId: "1463165",
             albumTitle: "Album Title",
-            artist: "Artist",
+            artist: "Album Artist",
             file: "hhtp://../album",
             tracks: 
-                [ 
-                    { 
+                [  { 
                          trackId: "132354",
                          trackTitle: "title"
                     },
@@ -35,20 +34,13 @@ describe('Unit - CreateAlbum', () => {
             tracksCount: 3    
         })
         const inMemoryAlbumRespository = new InMemoryAlbumRespository(db)
-        const uuidGateway = new UuidGateway() 
-        createAlbum = new CreateAlbum(inMemoryAlbumRespository, uuidGateway)
+        getAlbumById = new GetAlbumById(inMemoryAlbumRespository)
+        db.set(album.props.albumId, album)
     })
 
-    it('should create un album', async () => {
-        const result = await createAlbum.execute(album)
+
+    it('should get un album by id', async () => {
+        const result = await getAlbumById.execute("12345")
         expect(result.props.albumTitle).toEqual("Album Title")
     })
-
-    it('should throw error if album already exists', async () => {
-        const result = () =>  createAlbum.execute(album)
-        expect(async () => await result()).rejects.toThrow();
-    })
 })
-
-
-  

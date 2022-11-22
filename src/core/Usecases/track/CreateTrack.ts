@@ -6,6 +6,7 @@ import {UseCase} from "../Usecase";
 export type TrackInput = {
     trackId: string;
     trackTitle: string;
+    artist: string;
     duration: number;
     file: string
     userId: string
@@ -18,15 +19,16 @@ export class CreateTrack implements UseCase<TrackInput, Track> {
     }
 
     async execute(input: TrackInput): Promise<Track> {
-        const trackExists = await this.trackRepository.getByUserId(input.userId.toLowerCase().trim());
-        if (trackExists) {
-            throw new Error('user already exists')
+        const istrackExists = await this.trackRepository.exist(input.trackTitle, input.artist)
+        if (istrackExists) {
+            throw new Error('track already exists')
         }
         const id = this.idGateway.generate();
 
         const track = Track.create({
             trackId: id,
             trackTitle: input.trackTitle,
+            artist: input.artist,
             duration: input.duration,
             file: input.file,
             userId: input.userId

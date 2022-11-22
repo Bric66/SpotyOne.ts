@@ -25,5 +25,13 @@ export class MongoDbAlbumRepository implements AlbumRepository {
     getAlbumByUserId(userId: string): Promise<Album> {
         throw new Error("Method not implemented.");
     }
+
+    async exist(albumTitle: string, artist: string): Promise<boolean> {
+        const albumExist = await AlbumModel.findOne({albumTitle: albumTitle, artist: artist})
+        if (albumExist) {
+            return true
+        }
+        return false
+    }
     
 }

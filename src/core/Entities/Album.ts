@@ -6,6 +6,7 @@ export type TrackProperties = {
 export type AlbumProperties = {
   albumId: string;
   albumTitle: string;
+  artist: string;
   file: string;
   tracksCount: number;
   totalDuration: number;
@@ -22,6 +23,7 @@ export class Album {
   static create(props: {
     albumId: string;
     albumTitle: string;
+    artist: string;
     file: string;
     tracksCount: number;
     totalDuration: number;
@@ -31,6 +33,7 @@ export class Album {
     return new Album({
       albumId: props.albumId,
       userId: props.userId,
+      artist: props.artist,
       albumTitle: props.albumTitle,
       file: props.file,
       tracksCount: props.tracks.length,
@@ -41,11 +44,13 @@ export class Album {
 
   update(props: {
     file: string;
-    tracks: Array<TrackProperties>;
+    tracks: TrackProperties;
     albumTitle: string;
+    artist: string;
   }) {
     this.props.file = props.file;
-    this.props.tracks = props.tracks;
+    this.props.tracks.push(props.tracks);
     this.props.albumTitle = props.albumTitle;
+    this.props.artist = props.artist
   }
 }

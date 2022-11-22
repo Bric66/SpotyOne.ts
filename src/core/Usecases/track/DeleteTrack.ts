@@ -3,7 +3,7 @@ import {Track} from "../../Entities/Track";
 import {TrackRepository} from "../../repositories/TrackRepository";
 
 
-export class DeleteUser implements UseCase<string, string> {
+export class DeleteTrack implements UseCase<string, string> {
 
     constructor(private readonly userRepository: TrackRepository) {
     }
