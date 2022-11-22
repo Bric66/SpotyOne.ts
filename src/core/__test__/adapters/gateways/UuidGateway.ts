@@ -1,4 +1,4 @@
-import {IdGateway} from "../../../gateways/IdGateway";
+import { IdGateway } from "../../../gateways/IdGateway";
 import {v4} from "uuid";
 
 export class UuidGateway implements IdGateway {
@@ -6,3 +6,5 @@ export class UuidGateway implements IdGateway {
         return v4();
     }
 }
+
+

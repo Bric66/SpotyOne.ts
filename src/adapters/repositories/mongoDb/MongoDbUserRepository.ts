@@ -1,7 +1,6 @@
 import {UserRepository} from "../../../core/repositories/UserRepository";
 import {User, UserProperties} from "../../../core/Entities/User";
 import {UserModel} from "./models/user";
-import {UserUpdatedInput} from "../../../core/Usecases/user/UpdateUser";
 
 export class MongoDbUserRepository implements UserRepository {
 

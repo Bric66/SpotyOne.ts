@@ -5,8 +5,9 @@ import { Album } from "../../Entities/Album";
 
 export type UpdateAlbumInput = {
   file: string;
-  tracks: Array<TrackProperties>;
+  tracks: TrackProperties;
   albumTitle: string;
+  artist: string;
   userId: string;
 };
 
@@ -19,14 +20,10 @@ export class UpdateAlbum implements UseCase<UpdateAlbumInput, Promise<Album>> {
       albumTitle: input.albumTitle,
       file: input.file,
       tracks: input.tracks,
+      artist: input.artist,
     });
 
-    await this.albumRepository.updateAlbum({
-      albumTitle: album.props.albumId,
-      file: album.props.file,
-      tracks: album.props.tracks,
-      userId: album.props.userId,
-    });
+    await this.albumRepository.updateAlbum(album);
 
     return Promise.resolve(album);
   }
