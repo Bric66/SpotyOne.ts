@@ -19,18 +19,24 @@ export class CreateAlbum implements UseCase<Album, Promise<Album>> {
     private readonly idGateway: IdGateway,
     ) {}
 
-  execute(input: Album): Promise<Album> {
+  async execute(input: Album): Promise<Album> {
+    const isAlreadyCreated = await this.albumRepository.exist(input.props.albumTitle, input.props.artist)
+    if (isAlreadyCreated) {
+      throw new Error('Album already exists')
+    }
     const albumId = this.idGateway.generate()
     const album = Album.create({
       albumId: albumId,
       userId: input.props.userId,
+      artist: input.props.artist,
       albumTitle: input.props.albumTitle,
       file: input.props.file,
       tracks: input.props.tracks,
-      tracksCount: input.props.tracksCount,
       totalDuration: input.props.totalDuration,
+      tracksCount: input.props.tracksCount,
     });
-    this.albumRepository.create(album)
-    return Promise.resolve(album);
+    await this.albumRepository.create(album)
+    return input;
   }
 }
+

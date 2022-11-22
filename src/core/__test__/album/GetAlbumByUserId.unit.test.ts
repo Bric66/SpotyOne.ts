@@ -1,24 +1,25 @@
+
 import { InMemoryAlbumRespository } from './../adapters/repositories/InMemoryAlbumRespository';
 import { Album } from "../../Entities/Album"
-import { CreateAlbum } from "../../Usecases/album/CreateAlbum"
-import { UuidGateway } from '../adapters/gateways/UuidGateway';
+import { GetAlbumByUserId } from '../../Usecases/album/GetAlbumByUserId';
+
 
 const db = new Map<string, Album>()
+describe('Unit - GetAlbumById', () => {
 
-describe('Unit - CreateAlbum', () => {
-    let createAlbum: CreateAlbum
+    let getAlbumByUserId: GetAlbumByUserId
+    
     let album: Album
     
     beforeAll(() => {
         album = new Album({
-            albumId: "",
-            userId: "1463165",
+            albumId: "12345",
+            userId: "userId",
             albumTitle: "Album Title",
-            artist: "Artist",
+            artist: "Album Artist",
             file: "hhtp://../album",
             tracks: 
-                [ 
-                    { 
+                [  { 
                          trackId: "132354",
                          trackTitle: "title"
                     },
@@ -35,20 +36,13 @@ describe('Unit - CreateAlbum', () => {
             tracksCount: 3    
         })
         const inMemoryAlbumRespository = new InMemoryAlbumRespository(db)
-        const uuidGateway = new UuidGateway() 
-        createAlbum = new CreateAlbum(inMemoryAlbumRespository, uuidGateway)
+        getAlbumByUserId = new GetAlbumByUserId(inMemoryAlbumRespository)
+        db.set(album.props.albumId, album)
     })
 
-    it('should create un album', async () => {
-        const result = await createAlbum.execute(album)
+
+    it('should get un album by user id', async () => {
+        const result = await getAlbumByUserId.execute("userId")
         expect(result.props.albumTitle).toEqual("Album Title")
     })
-
-    it('should throw error if album already exists', async () => {
-        const result = () =>  createAlbum.execute(album)
-        expect(async () => await result()).rejects.toThrow();
-    })
 })
-
-
-  
