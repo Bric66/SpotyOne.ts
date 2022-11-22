@@ -8,7 +8,7 @@ const albumSchema = new Schema({
     tracksCount: {type: Number,},
     TotalDuration: {type: Number,},
     tracks: {type: Array<TrackProperties>},
-    ownerId: {type: String,},
+    userId: {type: String,},
 })
 
-export const UserModel=model ('Album',albumSchema)
+export const AlbumModel = model ('Album', albumSchema)

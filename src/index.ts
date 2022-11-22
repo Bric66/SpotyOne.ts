@@ -1,13 +1,11 @@
 import "dotenv/config";
 import express from "express";
-
-import { trackRouter } from "./api/routes/track";
-import { libraryRouter } from "./api/routes/library";
-import { albumRouter }  from "./api/routes/album";
-const port = +process.env.PORT_KEY;
 import * as mongoose from "mongoose";
+import { trackRouter } from "./api/routes/track"
+import { libraryRouter } from "./api/routes/library"
+import { albumRouter }  from "./api/routes/album"
+const port = +process.env.PORT_KEY;
 import {userRouter} from "./api/routes/user";
-
 
 mongoose.connect('mongodb://127.0.0.1:27017/spotyone_data', (err) => {
     if (err) {

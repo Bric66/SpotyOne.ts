@@ -21,7 +21,7 @@ export class UpdateAlbum implements UseCase<UpdateAlbumInput, Promise<Album>> {
       tracks: input.tracks,
     });
 
-    this.albumRepository.updateAlbum({
+    await this.albumRepository.updateAlbum({
       albumTitle: album.props.albumId,
       file: album.props.file,
       tracks: album.props.tracks,

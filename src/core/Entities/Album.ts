@@ -10,7 +10,7 @@ export type AlbumProperties = {
   tracksCount: number;
   totalDuration: number;
   tracks: Array<TrackProperties>;
- userId: string;
+  userId: string;
 };
 
 export class Album {

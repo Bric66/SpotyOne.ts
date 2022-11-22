@@ -52,6 +52,10 @@ export class Library {
     }
 
     addTrack(track: TrackLibraryProperties) {
+      const isTrackExist = this.props.tracks.find(elm => elm.trackId === track.trackId)
+      if (isTrackExist) {
+        throw new Error('track already exists')
+      }
       this.props.tracks.push(track)
     }
 }

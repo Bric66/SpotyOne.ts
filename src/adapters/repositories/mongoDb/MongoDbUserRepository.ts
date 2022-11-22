@@ -8,7 +8,7 @@ export class MongoDbUserRepository implements UserRepository {
     async create(user: User): Promise<User> {
         const userModel = new UserModel(user.props);
         await userModel.save().then(() => console.log('User created successfully'));
-        return Promise.resolve(user);
+        return user;
     }
 
     async getByEmail(email: string): Promise<User> {
@@ -26,7 +26,7 @@ export class MongoDbUserRepository implements UserRepository {
             libraryId: user.libraryId,
         }
         const userFound = await new User(userProperties);
-        return Promise.resolve(userFound);
+        return userFound;
     };
 
     async getById(id: string): Promise<User> {
@@ -43,10 +43,22 @@ export class MongoDbUserRepository implements UserRepository {
             updated: user.updated,
             libraryId: user.libraryId,
         }
-        const userFound = await new User(userProperties);
-        return Promise.resolve(userFound);
+        const userFound = new User(userProperties);
+        return userFound;
     };
 
+<<<<<<< HEAD
+    async update(input: User): Promise<User> {
+        await UserModel.findOneAndUpdate(
+            {id: input.props.id},
+            {
+                $set: {
+                    userName: input.props.userName,
+                    email: input.props.email,
+                    password: input.props.password,
+                    updated: input.props.updated,
+                }
+=======
     async update(input: UserUpdatedInput): Promise<User> {
         await UserModel.updateOne(
             {id: input.userId},
@@ -56,11 +68,12 @@ export class MongoDbUserRepository implements UserRepository {
                 password: input.password,
                 updated: input.updated,
                 id: input.userId
+>>>>>>> dev
             },
-            {upsert: true,}
-        ).then(() => console.log('User updated successfully'));
-        const result = await this.getById(input.userId);
-        return Promise.resolve(result);
+            {new : true}
+        ) 
+        console.log('User updated successfully');    
+        return input;
     };
 
     delete(userId: string): string {

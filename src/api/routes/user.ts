@@ -1,20 +1,15 @@
 import express from "express";
 const userRouter = express.Router();
 const secretKey = process.env.SECRET_KEY;
-
 import {CreateUser} from "../../core/Usecases/user/CreateUser";
 import {MongoDbUserRepository} from "../../adapters/repositories/mongoDb/MongoDbUserRepository";
 import {BcryptGateway} from "../../adapters/gateways/BcryptGateway";
 import {V4IdGateway} from "../../adapters/gateways/V4IdGateway";
 import {ConnectUser} from "../../core/Usecases/user/ConnectUser";
-
-
 import jwt from "jsonwebtoken";
 import {authorization} from "../middlewares/JwtAuthorizationMiddleware";
 import {AuthentifiedRequest} from "../types/AuthentifiedRequest";
 import {UpdateUser} from "../../core/Usecases/user/UpdateUser";
-
-
 const mongoDbUserRepository = new MongoDbUserRepository();
 const bcryptGateway = new BcryptGateway();
 const v4IdGateway = new V4IdGateway();
