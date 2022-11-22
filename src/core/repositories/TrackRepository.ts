@@ -10,4 +10,6 @@ export interface TrackRepository {
 
     delete(userId: string): string;
 
+    getById(trackId: string): Promise<Track>;
+
 }

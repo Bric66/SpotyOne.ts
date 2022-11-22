@@ -1,4 +1,3 @@
-import { UpdateLibraryInput } from "../Usecases/library/UpdateLibrary";
 import { Library } from "./../Entities/Library";
 
 export interface LibraryRepository {
@@ -6,7 +5,7 @@ export interface LibraryRepository {
 
   getByUserId(userId: string): Promise<Library>;
 
-  update(input: UpdateLibraryInput): Promise<Library>;
+  update(input: Library): Promise<Library>;
 
   delete(libraryId: string): string;
 }

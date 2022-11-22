@@ -1,5 +1,4 @@
 import {User} from "../Entities/User";
-import {UserUpdatedInput} from "../Usecases/user/UpdateUser";
 
 export interface UserRepository {
     create(input: User): Promise<User>;
@@ -8,8 +7,7 @@ export interface UserRepository {
 
     getById(userId: string): Promise<User>;
 
-    update (input: UserUpdatedInput) : Promise<User>;
+    update (input: User) : Promise<User>;
 
     delete(userId:string): string;
-
 }

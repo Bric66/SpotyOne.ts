@@ -40,13 +40,12 @@ export class User {
         userName: string;
         email: string;
         password: string;
-        updated: Date;
     }   )
     {
         this.props.userName=props.userName;
         this.props.email=props.email;
         this.props.password=props.password;
-        this.props.updated=props.updated;
+        this.props.updated= new Date();
     }
 }
 

@@ -5,7 +5,7 @@ import { UseCase } from "../Usecase";
 
 export type AlbumInput = {
   albumId: string;
-  ownerId: string;  
+  userId: string;  
   albumTitle: string;
   file: string;
   tracksCount: number;
@@ -23,7 +23,7 @@ export class CreateAlbum implements UseCase<Album, Promise<Album>> {
     const albumId = this.idGateway.generate()
     const album = Album.create({
       albumId: albumId,
-      ownerId: input.props.ownerId,
+      userId: input.props.userId,
       albumTitle: input.props.albumTitle,
       file: input.props.file,
       tracks: input.props.tracks,
