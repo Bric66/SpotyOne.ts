@@ -23,7 +23,7 @@ export class MongoDbUserRepository implements UserRepository {
             password: user.password,
             created: user.created,
             updated: user.updated,
-            library: user.library,
+            libraryId: user.libraryId,
         }
         const userFound = await new User(userProperties);
         return Promise.resolve(userFound);
@@ -41,7 +41,7 @@ export class MongoDbUserRepository implements UserRepository {
             password: user.password,
             created: user.created,
             updated: user.updated,
-            library: user.library,
+            libraryId: user.libraryId,
         }
         const userFound = await new User(userProperties);
         return Promise.resolve(userFound);
@@ -49,13 +49,13 @@ export class MongoDbUserRepository implements UserRepository {
 
     async update(input: UserUpdatedInput): Promise<User> {
         await UserModel.updateOne(
-            {userId: input.userId},
+            {id: input.userId},
             {
                 userName: input.userName,
                 email: input.email,
                 password: input.password,
                 updated: input.updated,
-                userId: input.userId
+                id: input.userId
             },
             {upsert: true,}
         ).then(() => console.log('User updated successfully'));

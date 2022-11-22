@@ -70,6 +70,7 @@ userRouter.post('/signIn', async (req, res) => {
             userName: user.props.userName,
             email: user.props.email,
             created: user.props.created,
+            accesskey: accessKey,
         });
     } catch (err) {
         return res.status(400).send({
@@ -107,5 +108,23 @@ userRouter.patch("/update",async (req: AuthentifiedRequest, res) => {
         })
     }
 });
+
+
+userRouter.delete("/delete",async (req: AuthentifiedRequest, res) => {
+    try {
+
+        await deleteUser.execute({
+            userId: req.user.id
+        })
+        return res.status(200).send({
+
+        });
+    } catch (err) {
+        return res.status(400).send({
+            message: err.message,
+        })
+    }
+});
+
 
 export {userRouter};
