@@ -7,7 +7,7 @@ const userSchema = new Schema({
     password: {type: String,},
     created: {type: Date,},
     updated: {type: Date,},
-    library: {type: [],},
+    libraryId: {type: String,},
 })
 
 export const UserModel=model ('User',userSchema)
