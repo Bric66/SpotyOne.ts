@@ -20,7 +20,7 @@ export class UpdateUser implements UseCase<UserUpdatedInput, User> {
     async execute(input: UserUpdatedInput): Promise<User> {
         const user = await this.userRepository.getById(input.userId)
         
-        const hashedPassword = await this.passwordGateway.encrypt(input.password)
+        const hashedPassword = this.passwordGateway.encrypt(input.password)
         user.update({
             email: input.email,
             password: hashedPassword,

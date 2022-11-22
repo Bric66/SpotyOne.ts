@@ -105,6 +105,7 @@ userRouter.patch("/update",async (req: AuthentifiedRequest, res) => {
 });
 
 
+/*
 userRouter.delete("/delete",async (req: AuthentifiedRequest, res) => {
     try {
 
@@ -120,6 +121,7 @@ userRouter.delete("/delete",async (req: AuthentifiedRequest, res) => {
         })
     }
 });
+*/
 
 
 export {userRouter};
