@@ -47,6 +47,7 @@ export class MongoDbUserRepository implements UserRepository {
         return userFound;
     };
 
+<<<<<<< HEAD
     async update(input: User): Promise<User> {
         await UserModel.findOneAndUpdate(
             {id: input.props.id},
@@ -57,6 +58,17 @@ export class MongoDbUserRepository implements UserRepository {
                     password: input.props.password,
                     updated: input.props.updated,
                 }
+=======
+    async update(input: UserUpdatedInput): Promise<User> {
+        await UserModel.updateOne(
+            {id: input.userId},
+            {
+                userName: input.userName,
+                email: input.email,
+                password: input.password,
+                updated: input.updated,
+                id: input.userId
+>>>>>>> dev
             },
             {new : true}
         ) 

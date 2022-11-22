@@ -25,7 +25,7 @@ export class ConnectUser implements UseCase<UserInput, User> {
         if (!comparePasswords) {
             throw new Error('user not found')
         }
-
+        console.log('User connected successfully');
         return userExists;
     }
 }
