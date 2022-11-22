@@ -7,5 +7,5 @@ export interface LibraryRepository {
 
   update(input: Library): Promise<Library>;
 
-  delete(libraryId: string): string;
+  delete(libraryId: string): Promise<string>;
 }

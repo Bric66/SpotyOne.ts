@@ -27,7 +27,7 @@ export class User {
     }) {
         return new User({
             id: props.id,
-            userName: props.userName.trim(),
+            userName: props.userName.toLowerCase().trim(),
             email: props.email.toLowerCase().trim(),
             password: props.password,
             created: new Date(),
@@ -42,8 +42,8 @@ export class User {
         password: string;
     }   )
     {
-        this.props.userName=props.userName;
-        this.props.email=props.email;
+        this.props.userName=props.userName.toLowerCase().trim();
+        this.props.email=props.email.toLowerCase().trim();
         this.props.password=props.password;
         this.props.updated= new Date();
     }
