@@ -37,4 +37,11 @@ export class InMemoryLibraryRepository implements LibraryRepository {
     delete(libraryId: string): Promise<void> {
         return
     };
+
+    findLibraryByAlbumId(albumId: string): Promise<Library> {
+        const values = Array.from(this.dbLibrary.values());
+        const library = values.find(library => library.props.albums
+            .find(albums => albums.albumId === albumId));
+        return Promise.resolve(library);
+    }
 }
