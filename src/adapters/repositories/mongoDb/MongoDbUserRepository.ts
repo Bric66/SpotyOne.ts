@@ -13,7 +13,7 @@ export class MongoDbUserRepository implements UserRepository {
     async getByEmail(email: string): Promise<User> {
         const user = await UserModel.findOne({email: email});
         if (!user) {
-            return null;
+            throw new Error("user not found");
         }
         const userProperties: UserProperties = {
             id: user.id,
@@ -31,7 +31,7 @@ export class MongoDbUserRepository implements UserRepository {
     async getById(id: string): Promise<User> {
         const user = await UserModel.findOne({id: id});
         if (!user) {
-            return null;
+            throw new Error("user not found");
         }
         const userProperties: UserProperties = {
             id: user.id,
@@ -63,8 +63,8 @@ export class MongoDbUserRepository implements UserRepository {
         return input;
     };
 
-    delete(userId: string): string {
-        UserModel.deleteOne({id: userId}).then(() => console.log('User deleted successfully'));
-        return userId;
+    async delete(userId: string): Promise<void> {
+        await UserModel.deleteOne({id: userId}).then(() => console.log('User deleted successfully'));
+        return ;
     };
 }

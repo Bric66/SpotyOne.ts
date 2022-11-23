@@ -1,3 +1,5 @@
+import { Track } from './../../../Entities/Track';
+
 import {Library} from "../../../Entities/Library";
 import {LibraryRepository} from "../../../repositories/LibraryRepository";
 import {User} from "../../../Entities/User";
@@ -24,6 +26,13 @@ export class InMemoryLibraryRepository implements LibraryRepository {
         this.dbLibrary.set(library.props.libraryId, library);
         return Promise.resolve(library);
     };
+
+    async findLibraryByTrackId(trackId: string): Promise<Library> {
+        const values = Array.from(this.dbLibrary.values());
+        const library = values.find(library => library.props.tracks
+                                    .find(tracks => tracks.trackId === trackId));
+        return library
+    }
 
     delete(libraryId: string): Promise<void> {
         return
