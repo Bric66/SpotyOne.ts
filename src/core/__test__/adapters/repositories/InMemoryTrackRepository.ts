@@ -25,9 +25,9 @@ export class InMemoryTrackRepository implements TrackRepository {
         throw new Error('Method not implemented.');
     }
 
-    async exist(trakcTitle: string, artist: string): Promise<Boolean> {
+    async exist(trackTitle: string, artist: string): Promise<Boolean> {
         const values = Array.from(this.db.values());
-        const isTrackExist = values.find(elm => elm.props.trackTitle === trakcTitle && elm.props.artist === artist)
+        const isTrackExist = values.find(elm => elm.props.trackTitle === trackTitle && elm.props.artist === artist)
         if (isTrackExist) {
             return true
         }

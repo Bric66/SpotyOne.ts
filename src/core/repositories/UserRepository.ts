@@ -9,5 +9,5 @@ export interface UserRepository {
 
     update (input: User) : Promise<User>;
 
-    delete(userId:string): Promise<string>;
+    delete(userId:string): Promise<void>;
 }
