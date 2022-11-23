@@ -5,9 +5,6 @@ export class InMemoryUserRepository implements UserRepository {
 
     constructor(private readonly dbUser: Map<string, User>) {
     }
-    delete(userId: string): string {
-        throw new Error("Method not implemented.");
-    }
 
     create(user: User): Promise<User> {
         this.dbUser.set(user.props.id, user);
@@ -25,11 +22,13 @@ export class InMemoryUserRepository implements UserRepository {
         return Promise.resolve(user);
     }
 
-    async update(user: User): Promise<User> {
+    update(user: User): Promise<User> {
         this.dbUser.set(user.props.id, user);
         return Promise.resolve(user);
     }
 
-    //
-    // delete(userId:string): string;
+
+    delete(userId: string): Promise<string> {
+        return Promise.resolve(userId)
+    };
 }
