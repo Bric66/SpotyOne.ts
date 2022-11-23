@@ -6,6 +6,7 @@ import { AlbumRepository } from './../../../repositories/AlbumRepository';
 export class InMemoryAlbumRespository implements AlbumRepository {
     constructor(private readonly db: Map<string, Album>) {}
 
+
     async create(input: Album): Promise<Album> {
         this.db.set(input.props.albumId, input)
         return input
@@ -18,6 +19,11 @@ export class InMemoryAlbumRespository implements AlbumRepository {
         return result
     }
 
+    async getAlbumByTitle(albumTitle: string): Promise<Album> {
+        const values = Array.from(this.db.values());
+        const album = values.find(elm => elm.props.albumTitle === albumTitle)
+        return album
+    }
     async getAlbumById(albumId: string): Promise<Album> {
         const album = this.db.get(albumId)
         return album 

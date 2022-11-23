@@ -1,3 +1,4 @@
+
 import {Library} from "../../../Entities/Library";
 import {LibraryRepository} from "../../../repositories/LibraryRepository";
 import {User} from "../../../Entities/User";
@@ -11,9 +12,13 @@ export class InMemoryLibraryRepository implements LibraryRepository {
         return Promise.resolve(library)
     };
 
-    getByUserId(userId: string): Promise<Library> {
-        const library = this.dbLibrary.get(userId);
-        return Promise.resolve(library)
+    async getByUserId(userId: string): Promise<Library> {
+        const values = Array.from(this.dbLibrary.values());
+        const library = values.find(library => library.props.userId === userId);
+        if (!library) {
+            throw new Error('library not found')
+        }
+        return library
     };
 
     update(library: Library): Promise<Library> {

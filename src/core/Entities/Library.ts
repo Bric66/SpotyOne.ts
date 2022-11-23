@@ -1,7 +1,6 @@
 export type AlbumLibraryProperties = {
   albumId: string;
   title: string;
-  picture: string;
 }
 export type TrackLibraryProperties = {
   trackId: string;

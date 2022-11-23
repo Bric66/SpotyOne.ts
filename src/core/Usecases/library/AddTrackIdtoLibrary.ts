@@ -1,4 +1,4 @@
-import { TrackRepository } from './../../repositories/TrackRepository';
+import { TrackRepository } from '../../repositories/TrackRepository';
 import { UseCase } from "../Usecase";
 import { Library } from "../../Entities/Library";
 import { LibraryRepository } from "../../repositories/LibraryRepository";

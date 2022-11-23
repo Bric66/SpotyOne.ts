@@ -2,7 +2,6 @@ import { LibraryRepository } from './../../repositories/LibraryRepository';
 import { AlbumProperties, TrackProperties } from './../../Entities/Album';
 import { Library } from '../../Entities/Library';
 import { UseCase } from './../Usecase';
-import { IdGateway } from '../../gateways/IdGateway';
 
 export type CreateLibraryInput = {
     userId: string;
@@ -15,8 +14,7 @@ export class CreateLibrary implements UseCase<CreateLibraryInput, Library> {
         private readonly libraryRepository: LibraryRepository,
         ) {}
 
-      execute(input: CreateLibraryInput): Promise<Library> {
-
+      execute(input: CreateLibraryInput): Promise<Library> { 
          const library = Library.create({
              userId: input.userId,
              title: input.title,
@@ -26,3 +24,4 @@ export class CreateLibrary implements UseCase<CreateLibraryInput, Library> {
         return Promise.resolve(library)
     }
 }
+

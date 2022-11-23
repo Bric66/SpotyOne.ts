@@ -1,5 +1,4 @@
 import { AlbumRepository } from './../../repositories/AlbumRepository';
-import { Album } from './../../Entities/Album';
 import { LibraryRepository } from '../../repositories/LibraryRepository';
 import { Library } from './../../Entities/Library';
 import { UseCase } from './../Usecase';
