@@ -28,7 +28,7 @@ export class InMemoryUserRepository implements UserRepository {
     }
 
 
-    delete(userId: string): Promise<string> {
-        return Promise.resolve(userId)
+    delete(userId: string): Promise<void> {
+        return
     };
 }

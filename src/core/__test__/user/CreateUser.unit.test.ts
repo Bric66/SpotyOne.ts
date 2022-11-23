@@ -2,7 +2,6 @@ import {CreateUser} from "../../Usecases/user/CreateUser";
 import {User} from "../../Entities/User";
 import {InMemoryUserRepository} from "../adapters/repositories/InMemoryUserRepository";
 import {UuidGateway} from "../adapters/gateways/UuidGateway";
-import {uuid} from "uuidv4";
 import {BcryptGateway} from "../adapters/gateways/BcryptGateway";
 
 const dbCreateUser = new Map<string, User>();

@@ -26,7 +26,7 @@ export class InMemoryLibraryRepository implements LibraryRepository {
         return Promise.resolve(library);
     };
 
-    delete(libraryId: string): Promise<string> {
-        return Promise.resolve(libraryId)
+    delete(libraryId: string): Promise<void> {
+        return
     };
 }
