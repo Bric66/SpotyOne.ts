@@ -2,7 +2,6 @@ export type TrackProperties = {
   trackId: string;
   trackTitle: string;
 };
-
 export type AlbumProperties = {
   albumId: string;
   albumTitle: string;
@@ -13,13 +12,11 @@ export type AlbumProperties = {
   tracks: Array<TrackProperties>;
   userId: string;
 };
-
 export class Album {
   props: AlbumProperties;
   constructor(props: AlbumProperties) {
     this.props = props;
   }
-
   static create(props: {
     albumId: string;
     albumTitle: string;
@@ -41,7 +38,6 @@ export class Album {
       tracks: props.tracks,
     });
   }
-
   update(props: {
     file: string;
     tracks: TrackProperties;

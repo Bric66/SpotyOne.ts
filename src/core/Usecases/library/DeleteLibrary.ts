@@ -1,13 +1,18 @@
 import { LibraryRepository } from '../../repositories/LibraryRepository';
 import { UseCase } from './../Usecase';
 
-export class DeleteLibrary implements UseCase<string, string> {
+export type LibraryDeletedInput = {
+    userId: string
+}
+
+
+export class DeleteLibrary implements UseCase<LibraryDeletedInput, void> {
     constructor(
         private readonly libraryRepository: LibraryRepository
     ) {}
     
-    execute(libraryId: string): string {
-        this.libraryRepository.delete(libraryId)
-        return libraryId;
+    async execute(input: LibraryDeletedInput): Promise<void> {
+        await this.libraryRepository.delete(input.userId)
+        return ;
     }
 }

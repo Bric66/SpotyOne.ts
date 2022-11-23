@@ -10,10 +10,11 @@ describe('When I call DeleteUser', () => {
     const deleteUser = new DeleteUser(inMemoryUserRepository)
     const uuidGateway = new UuidGateway()
     const id = uuidGateway.generate()
+
     it('should delete user', async () => {
         const result = await deleteUser.execute({
             userId: id,
         });
-        await expect(result).toEqual(id);
+        await expect(result).toBeFalsy();
     });
 })

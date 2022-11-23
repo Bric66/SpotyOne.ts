@@ -6,8 +6,6 @@ import { IdGateway } from '../../gateways/IdGateway';
 
 export type CreateLibraryInput = {
     userId: string;
-    albums?: AlbumProperties;
-    tracks?: TrackProperties;
     title: string;
     userLibraryId: string;
 }
@@ -15,7 +13,6 @@ export type CreateLibraryInput = {
 export class CreateLibrary implements UseCase<CreateLibraryInput, Library> {
     constructor(
         private readonly libraryRepository: LibraryRepository,
-        private readonly idGateway: IdGateway,
         ) {}
 
       execute(input: CreateLibraryInput): Promise<Library> {
