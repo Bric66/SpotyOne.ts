@@ -1,11 +1,11 @@
 import { AlbumRepository } from "./../../repositories/AlbumRepository";
 import { UseCase } from "../Usecase";
 
-export class DeleteAlbum implements UseCase<string, string> {
+export class DeleteAlbum implements UseCase<string, void> {
   constructor(private readonly albumRepository: AlbumRepository) {}
 
-  execute(albumId: string): string {
-    this.albumRepository.deleteAlbum(albumId);
-    return albumId;
+  async execute(albumId: string): Promise<void> {
+    await this.albumRepository.deleteAlbum(albumId);
+    return;
   }
 }

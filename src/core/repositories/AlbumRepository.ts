@@ -8,9 +8,11 @@ export interface AlbumRepository {
 
   getAlbumById(albumId: string): Promise<Album>;
 
+  getAlbumByTitle(albumTitle: string) : Promise<Album>;
+
   updateAlbum(input: Album): Promise<Album>;
 
-  deleteAlbum(albumId: string): string;
+  deleteAlbum(albumId: string): void;
 
   getAlbumByUserId(userId: string): Promise<Album>;
 

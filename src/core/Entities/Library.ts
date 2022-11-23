@@ -1,7 +1,6 @@
 export type AlbumLibraryProperties = {
   albumId: string;
   title: string;
-  picture: string;
 }
 
 export type TrackLibraryProperties = {
@@ -39,12 +38,8 @@ export class Library {
 
     update(props : {
       title: string;
-      albums: Array<AlbumLibraryProperties>; 
-      tracks: Array<TrackLibraryProperties>; 
     }) {
       this.props.title = props.title;
-      this.props.albums = props.albums;
-      this.props.tracks = props.tracks;
     }
 
     addAlbum(album: AlbumLibraryProperties) {

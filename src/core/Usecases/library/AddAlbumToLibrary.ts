@@ -1,3 +1,5 @@
+import { AlbumRepository } from './../../repositories/AlbumRepository';
+import { Album } from './../../Entities/Album';
 import { LibraryRepository } from '../../repositories/LibraryRepository';
 import { Library } from './../../Entities/Library';
 import { UseCase } from './../Usecase';
@@ -5,36 +7,27 @@ import { UseCase } from './../Usecase';
 export type AddAlbumToLibraryInput = {
     albumId: string;
     title: string;
-    picture: string;
     userId: string;
 }
 
 
-export class AddAlbumToLibraryByTitle implements UseCase<AddAlbumToLibraryInput, Promise<Library>> {
+export class AddAlbumToLibrary implements UseCase<AddAlbumToLibraryInput, Promise<Library>> {
     
-  constructor(private readonly libraryRepository: LibraryRepository) {}
+  constructor(
+    private readonly libraryRepository: LibraryRepository,
+    private readonly albumRepository: AlbumRepository
+    ) {}
 
     async execute(input: AddAlbumToLibraryInput): Promise<Library> {
         const library = await this.libraryRepository.getByUserId(input.userId);
+        const album = await this.albumRepository.getAlbumByTitle(input.title);
 
         library.addAlbum({
-            albumId: input.albumId,
-            picture: input.picture,
-            title: input.title,
+            albumId: album.props.albumId,
+            title: album.props.albumTitle,
         })
 
-        library.update({
-            albums: library.props.albums,
-            title: library.props.title,
-            tracks: library.props.tracks,
-        })
-
-        await this.libraryRepository.update({
-            userId: library.props.userId,
-            albums: library.props.albums,
-            title: library.props.title,
-            tracks: library.props.tracks
-        })
+        await this.libraryRepository.update(library)
 
         return Promise.resolve(library)
     }
