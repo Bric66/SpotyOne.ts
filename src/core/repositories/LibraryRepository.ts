@@ -8,4 +8,6 @@ export interface LibraryRepository {
   update(input: Library): Promise<Library>;
 
   delete(input: string): Promise<void>;
+
+  findLibraryByTrackId(trackId: string): Promise<Library>
 }
