@@ -1,3 +1,4 @@
+import { v4 } from 'uuid';
 import { UserModel } from "./../repositories/mongoDb/models/user";
 import { User } from "./../../core/Entities/User";
 import { MongoDbUserRepository } from "./../repositories/mongoDb/MongoDbUserRepository";
@@ -8,7 +9,8 @@ describe("Integration - MongoDbUserRepository", () => {
   let user: User;
 
   beforeAll(async () => {
-    mongoose.connect("mongodb://127.0.0.1:27017/spotyone_data", (err) => {
+    const databaseId = v4()
+    mongoose.connect(`mongodb://127.0.0.1:27017/${databaseId}`, (err) => {
       if (err) {
         throw err;
       }
@@ -31,6 +33,11 @@ describe("Integration - MongoDbUserRepository", () => {
   afterEach(async () => {
     await UserModel.collection.drop();
   });
+
+  afterAll( async () => {
+    await mongoose.connection.dropDatabase()
+    await mongoose.connection.close();
+  })
 
   it("Should save a user", async () => {
     await mongoDbUserRepository.create(user);
