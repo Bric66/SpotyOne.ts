@@ -24,7 +24,7 @@ export class MongoDbUserRepository implements UserRepository {
             updated: user.updated,
             libraryId: user.libraryId,
         }
-        const userFound = await new User(userProperties);
+        const userFound = new User(userProperties);
         return userFound;
     };
 
