@@ -1,7 +1,6 @@
-import { Album } from "../../core/Entities/Album";
-import { AlbumRepository } from "../../core/repositories/AlbumRepository";
-import { UpdateAlbumInput } from "../../core/Usecases/album/UpdateAlbum";
-import { AlbumModel } from "./mongoDb/models/album";
+import {Album} from "../../../core/Entities/Album";
+import {AlbumRepository} from "../../../core/repositories/AlbumRepository";
+import {AlbumModel} from "./models/album";
 
 export class MongoDbAlbumRepository implements AlbumRepository {
     async create(album: Album): Promise<Album> {
@@ -9,21 +8,24 @@ export class MongoDbAlbumRepository implements AlbumRepository {
         await albumModel.save().then(() => console.log('Album created successfully'));
         return Promise.resolve(album);
     }
-    
-    getAlbums(): Promise<Album[]> {
-        throw new Error("Method not implemented.");
+
+    updateAlbum(input: Album): Promise<Album> {
+        return Promise.resolve(undefined);
     }
+
     getAlbumById(albumId: string): Promise<Album> {
         throw new Error("Method not implemented.");
     }
-    updateAlbum(input: UpdateAlbumInput): Promise<Album> {
-        throw new Error("Method not implemented.");
-    }
-    deleteAlbum(albumId: string): string {
-        throw new Error("Method not implemented.");
-    }
+
     getAlbumByUserId(userId: string): Promise<Album> {
         throw new Error("Method not implemented.");
+    }
+
+    getAlbums(): Promise<string[]> {
+        return Promise.resolve([]);
+    }
+    getAlbumByTitle(albumTitle: string): Promise<Album> {
+        return Promise.resolve(undefined);
     }
 
     async exist(albumTitle: string, artist: string): Promise<boolean> {
@@ -33,5 +35,8 @@ export class MongoDbAlbumRepository implements AlbumRepository {
         }
         return false
     }
-    
+
+    deleteAlbum(albumId: string): string {
+        throw new Error("Method not implemented.");
+    }
 }
