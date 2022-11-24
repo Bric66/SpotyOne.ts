@@ -4,7 +4,7 @@ import { Album } from "../Entities/Album";
 export interface AlbumRepository {
   create(input: Album): Promise<Album>;
 
-  getAlbums(): Promise<string[]>;
+  getAlbums(): Promise<Object[]>;
 
   getAlbumById(albumId: string): Promise<Album>;
 

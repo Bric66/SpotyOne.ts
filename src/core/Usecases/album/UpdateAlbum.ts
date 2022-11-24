@@ -9,6 +9,7 @@ export type UpdateAlbumInput = {
   albumTitle: string;
   artist: string;
   userId: string;
+  updated: Date;
 };
 
 export class UpdateAlbum implements UseCase<UpdateAlbumInput, Promise<Album>> {
@@ -21,6 +22,7 @@ export class UpdateAlbum implements UseCase<UpdateAlbumInput, Promise<Album>> {
       file: input.file,
       tracks: input.tracks,
       artist: input.artist,
+      updated : new Date(),
     });
 
     await this.albumRepository.updateAlbum(album);
