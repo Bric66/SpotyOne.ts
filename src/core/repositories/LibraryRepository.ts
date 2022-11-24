@@ -9,7 +9,4 @@ export interface LibraryRepository {
 
   delete(input: string): Promise<void>;
 
-  findLibraryByTrackId(trackId: string): Promise<Library>
-
-  findLibraryByAlbumId(albumId: string): Promise<Library>;
 }

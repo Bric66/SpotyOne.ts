@@ -30,14 +30,17 @@ export class Library {
       tracks: [],
     })
   }
+
   update(props : {
     title: string;
   }) {
     this.props.title = props.title;
   }
+
   addAlbum(album: AlbumLibraryProperties) {
     this.props.albums.push(album)
   }
+
   addTrack(track: TrackLibraryProperties) {
     const isTrackExist = this.props.tracks.find(elm => elm.trackId === track.trackId)
     if (isTrackExist) {
@@ -45,4 +48,23 @@ export class Library {
     }
     this.props.tracks.push(track)
   }
+
+  canAddAlbum(albumId: string) {
+    const album = this.props.albums.find(elm => elm.albumId === albumId)
+    if (album) {
+      return false;
+    }
+    return true;
+  }
+
+  
+  canAddTrack(trackId: string) {
+    const track = this.props.tracks.find(elm => elm.trackId === trackId)
+    if (track) {
+      return false;
+    }
+    return true;
+  }
+
+
 }

@@ -17,19 +17,19 @@ describe("Unit - CreateAlbum", () => {
       artist: "Artist",
       file: "hhtp://../album",
       tracks: [
-        {
-          trackId: "132354",
-          trackTitle: "title",
-        },
-        {
-          trackId: "789798",
-          trackTitle: "title",
-        },
-        {
-          trackId: "4654654687",
-          trackTitle: "title",
-        },
-      ],
+                {
+                  trackId: "132354",
+                  trackTitle: "title",
+                },
+                {
+                  trackId: "789798",
+                  trackTitle: "title",
+                },
+                {
+                  trackId: "4654654687",
+                  trackTitle: "title",
+                },
+              ],
       totalDuration: 1547,
       tracksCount: 3,
     });

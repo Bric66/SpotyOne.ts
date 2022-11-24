@@ -10,7 +10,10 @@ describe('Unit - UpdateLibrary', () => {
         const inMemoryTrackRepository = new InMemoryTrackRepository(dbTrack)
         const inMemoryLibraryRepository = new InMemoryLibraryRepository(dbLibrary);
         const addTrackToLibrary = new AddTrackToLibrary(inMemoryLibraryRepository, inMemoryTrackRepository)
-        const library = new Library({
+        let track: Track;
+
+        beforeAll(() => {
+                const library = new Library({
             albums: [],
             tracks: [
                         {
@@ -23,7 +26,7 @@ describe('Unit - UpdateLibrary', () => {
             title: "my library title",
             userId: "12345"
         })      
-        const track = new Track({
+         track = new Track({
             artist: "artist name",
             created: new Date(),
             duration: 200,
@@ -35,10 +38,11 @@ describe('Unit - UpdateLibrary', () => {
         })
         dbTrack.set(track.props.trackId, track)
         dbLibrary.set(library.props.libraryId, library)
-
+       })
+       
     it('should add a track in library', async () => {
         const result = await addTrackToLibrary.execute({
-            trackTitle: "my track title",
+            trackTitle: track.props.trackTitle,
             userId: "12345"         
         })
         expect(result.props.tracks).toHaveLength(2)

@@ -17,8 +17,8 @@ export class AddTrackToLibrary implements UseCase<AddTrackToLibraryInput, Promis
   async execute(input: AddTrackToLibraryInput): Promise<Library> {
     const track = await this.trackRepository.getByTitle(input.trackTitle)
     const library = await this.libraryRepository.getByUserId(input.userId)
-    const isTrackAlreadyAdded = await this.libraryRepository.findLibraryByTrackId(track.props.trackId)
-    if (isTrackAlreadyAdded) {
+    const isTrackAlreadyAdded = library.canAddTrack(track.props.trackId)
+    if (!isTrackAlreadyAdded) {
       throw new Error("track already added")
     }
     
