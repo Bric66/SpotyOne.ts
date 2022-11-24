@@ -8,8 +8,6 @@ export type AlbumInput = {
   userId: string;  
   albumTitle: string;
   file: string;
-  tracksCount: number;
-  totalDuration: number;
   tracks: Array<TrackProperties>;
 }
 
@@ -32,8 +30,6 @@ export class CreateAlbum implements UseCase<Album, Promise<Album>> {
       albumTitle: input.props.albumTitle,
       file: input.props.file,
       tracks: input.props.tracks,
-      totalDuration: input.props.totalDuration,
-      tracksCount: input.props.tracksCount,
     });
     await this.albumRepository.create(album)
     return input;

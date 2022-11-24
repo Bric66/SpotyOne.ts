@@ -1,48 +1,108 @@
-import { Album } from "../../../core/Entities/Album";
-import { AlbumRepository } from "../../../core/repositories/AlbumRepository";
-import { AlbumModel } from "./models/album";
+import {Album, AlbumProperties} from "../../../core/Entities/Album";
+import {AlbumRepository} from "../../../core/repositories/AlbumRepository";
+import {AlbumModel} from "./models/album";
+import {UserModel} from "./models/user";
 
 export class MongoDbAlbumRepository implements AlbumRepository {
-  async create(album: Album): Promise<Album> {
-    const albumModel = new AlbumModel(album.props);
-    await albumModel
-      .save()
-      .then(() => console.log("Album created successfully"));
-    return Promise.resolve(album);
-  }
 
-  updateAlbum(input: Album): Promise<Album> {
-    throw new Error("Method not implemented.");
-  }
-
-  getAlbumById(albumId: string): Promise<Album> {
-    throw new Error("Method not implemented.");
-  }
-
-  getAlbumByUserId(userId: string): Promise<Album> {
-    throw new Error("Method not implemented.");
-  }
-
-  getAlbums(): Promise<string[]> {
-    throw new Error("Method not implemented.");
-  }
-
-  getAlbumByTitle(albumTitle: string): Promise<Album> {
-    throw new Error("Method not implemented.");
-  }
-
-  async exist(albumTitle: string, artist: string): Promise<boolean> {
-    const albumExist = await AlbumModel.findOne({
-      albumTitle: albumTitle,
-      artist: artist,
-    });
-    if (albumExist) {
-      return true;
+    async create(album: Album): Promise<Album> {
+        const albumModel = new AlbumModel(album.props);
+        await albumModel.save().then(() => console.log("Album created successfully"));
+        return album;
     }
-    return false;
-  }
 
-  deleteAlbum(albumId: string): string {
-    throw new Error("Method not implemented.");
-  }
+    updateAlbum(input: Album): Promise<Album> {
+        AlbumModel.findOneAndUpdate(
+            {id: input.props.userId},
+            {
+                $set: {
+                    albumTitle: input.props.albumTitle,
+                    artist: input.props.artist,
+                    updated: input.props.updated
+                }
+            },
+            {new: true}
+        )
+        console.log('Album updated successfully');
+        return Promise.resolve(input);
+    };
+
+    async getAlbumById(albumId: string): Promise<Album> {
+        const album = await AlbumModel.findOne({albumId: albumId});
+        if (!album) {
+            throw new Error('Album not found');
+        }
+        const albumProperties: AlbumProperties = {
+            albumId: album.albumId,
+            artist: album.artist,
+            albumTitle: album.albumTitle,
+            file: album.file,
+            tracks: album.tracks,
+            created: album.created,
+            updated: album.updated,
+            userId: album.userId
+        }
+        const albumFound = new Album(albumProperties);
+        return albumFound;
+    }
+
+    async getAlbumByUserId(userId: string): Promise<Album> {
+        const album = await AlbumModel.findOne({userId: userId});
+        if (!album) {
+            throw new Error('Album not found');
+        }
+        const albumProperties: AlbumProperties = {
+            albumId: album.albumId,
+            artist: album.artist,
+            albumTitle: album.albumTitle,
+            file: album.file,
+            tracks: album.tracks,
+            created: album.created,
+            updated: album.updated,
+            userId: album.userId
+        }
+        const albumFound = new Album(albumProperties);
+        return albumFound;
+    }
+
+    async getAlbumByTitle(albumTitle: string): Promise<Album> {
+        const album = await AlbumModel.findOne({albumTitle: albumTitle});
+        if (!album) {
+            throw new Error('Album not found');
+        }
+        const albumProperties: AlbumProperties = {
+            albumId: album.albumId,
+            artist: album.artist,
+            albumTitle: album.albumTitle,
+            file: album.file,
+            tracks: album.tracks,
+            created: album.created,
+            updated: album.updated,
+            userId: album.userId
+        }
+        const albumFound = new Album(albumProperties);
+        return albumFound;
+    }
+
+    async getAlbums(): Promise<Object[]> {
+        const albums = await AlbumModel.find();
+        const result = albums.map(({albumTitle, artist}) => ({albumTitle, artist}))
+        return result
+    }
+
+    async exist(albumTitle: string, artist: string): Promise<boolean> {
+        const albumExist = await AlbumModel.findOne({
+            albumTitle: albumTitle,
+            artist: artist,
+        });
+        if (albumExist) {
+            return true;
+        }
+        return false;
+    }
+
+    async deleteAlbum(albumId: string): Promise<void> {
+        await UserModel.deleteOne({id: albumId}).then(() => console.log('Album deleted successfully'));
+        return;
+    }
 }

@@ -7,9 +7,9 @@ export type AlbumProperties = {
   albumTitle: string;
   artist: string;
   file: string;
-  tracksCount: number;
-  totalDuration: number;
   tracks: Array<TrackProperties>;
+  created: Date;
+  updated: Date;
   userId: string;
 };
 export class Album {
@@ -22,8 +22,6 @@ export class Album {
     albumTitle: string;
     artist: string;
     file: string;
-    tracksCount: number;
-    totalDuration: number;
     tracks: Array<TrackProperties>;
     userId: string;
   }) {
@@ -33,9 +31,9 @@ export class Album {
       artist: props.artist,
       albumTitle: props.albumTitle,
       file: props.file,
-      tracksCount: props.tracks.length,
-      totalDuration: props.totalDuration / 60, // à terminé
       tracks: props.tracks,
+      created: new Date(),
+      updated: null,
     });
   }
   update(props: {
@@ -43,10 +41,12 @@ export class Album {
     tracks: TrackProperties;
     albumTitle: string;
     artist: string;
+    updated: Date;
   }) {
     this.props.file = props.file;
     this.props.tracks.push(props.tracks);
     this.props.albumTitle = props.albumTitle;
-    this.props.artist = props.artist
+    this.props.artist = props.artist;
+    this.props.updated= props.updated;
   }
 }
