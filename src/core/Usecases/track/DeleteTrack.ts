@@ -3,15 +3,15 @@ import {Track} from "../../Entities/Track";
 import {TrackRepository} from "../../repositories/TrackRepository";
 
 
-export class DeleteTrack implements UseCase<string, string> {
+export class DeleteTrack implements UseCase<string, void> {
 
-    constructor(private readonly userRepository: TrackRepository) {
+    constructor(private readonly trackRepository: TrackRepository) {
     }
 
-    execute(userId: string): string {
+    execute(trackId: string): Promise<void> {
 
-        const track = this.userRepository.delete(userId);
+        const track = this.trackRepository.delete(trackId);
 
-        return (userId);
+        return ;
     }
 }

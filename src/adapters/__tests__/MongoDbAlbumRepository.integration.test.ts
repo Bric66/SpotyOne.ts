@@ -78,6 +78,16 @@ describe('Integration - MongoDbAlbumRepository', () => {
         await mongoose.connection.close();
     })
 
+    it('should return true if album presentation exists', async () => {
+        const test = await mongoDbAlbumRepository.exist(
+            "Album Title",
+            "Artist",
+        );
+        console.log();
+        await expect(test).toBeTruthy();
+    })
+
+
     it("Should save an album", async () => {
         await expect(result.props.albumTitle).toEqual("Album Title");
         await expect(result.props.albumId).toBeTruthy();
@@ -133,15 +143,7 @@ describe('Integration - MongoDbAlbumRepository', () => {
         const result = await mongoDbAlbumRepository.getAlbums();
         await expect(result).toHaveLength(2);
     })
-    it('should return true if album presentation exists', async () => {
-        await mongoDbAlbumRepository.create(album2)
-        const test = await mongoDbAlbumRepository.exist(
-            "WMCA",
-            "village people"
-        );
-        console.log();
-        await expect(test).toBeTruthy();
-    })
+
 
     it('should return false if album presentation doesnt exist', async () => {
         const result = await mongoDbAlbumRepository.exist(
