@@ -39,18 +39,30 @@ describe("Unit - CreateAlbum", () => {
     });
     beforeEach(() => {
         db.clear()
+        createAlbum.execute({
+            albumTitle: album.props.albumTitle,
+            artist: album.props.artist,
+            file: album.props.file,
+            tracks: album.props.tracks,
+            userId: album.props.userId,
+        });
     });
 
     it("should create an album", async () => {
-        const result = await createAlbum.execute(album);
+        const result = album
         expect(result.props.albumTitle).toEqual("Album Title");
         expect(result.props.artist).toEqual("Artist");
         expect(result.props.created).toBeTruthy();
     });
 
     it("should throw error if album already exists", async () => {
-        await createAlbum.execute(album);
-        const result = () => createAlbum.execute(album);
+        const result = () => createAlbum.execute({
+            albumTitle: album.props.albumTitle,
+            artist: album.props.artist,
+            file: album.props.file,
+            tracks: album.props.tracks,
+            userId: album.props.userId,
+        });
         await expect(async () => result()).rejects.toThrow();
     });
 });
