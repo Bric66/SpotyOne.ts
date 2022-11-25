@@ -23,8 +23,8 @@ describe("unit - CreateTrack", () => {
     deleteTrack = new DeleteTrack(inMemoryTrackRepository);
     db.set(track.props.trackId, track);
   });
-  it("should update a track", async () => {
+  it("should delete a track", async () => {
     const result = await deleteTrack.execute("9999");
-    expect(result).toEqual("9999");
+    expect(result).toBeFalsy();
   });
 });

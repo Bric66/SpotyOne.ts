@@ -14,12 +14,12 @@ export class InMemoryTrackRepository implements TrackRepository {
         const track = values.find(track => track.props.userId === userId);
         return track
     }
-    update(input: TrackUpdatedInput): Promise<Track> {
+    update(input: Track): Promise<Track> {
         throw new Error('Method not implemented.');
     }
-    delete(userId: string): string {
-        this.db.delete(userId)
-        return userId
+    delete(trackId: string): Promise<void> {
+        this.db.delete(trackId)
+        return
     }
     getById(trackId: string): Promise<Track> {
         throw new Error('Method not implemented.');

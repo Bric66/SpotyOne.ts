@@ -12,7 +12,7 @@ export class MongoDbAlbumRepository implements AlbumRepository {
     }
 
     updateAlbum(input: Album): Promise<Album> {
-        AlbumModel.findOneAndUpdate(
+       AlbumModel.findOneAndUpdate(
             {id: input.props.userId},
             {
                 $set: {
@@ -102,7 +102,7 @@ export class MongoDbAlbumRepository implements AlbumRepository {
     }
 
     async deleteAlbum(albumId: string): Promise<void> {
-        await UserModel.deleteOne({id: albumId}).then(() => console.log('Album deleted successfully'));
+        await AlbumModel.deleteOne({id: albumId}).then(() => console.log('Album deleted successfully'));
         return;
     }
 }
