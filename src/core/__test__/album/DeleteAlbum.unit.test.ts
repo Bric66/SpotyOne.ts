@@ -25,8 +25,8 @@ describe('Unit - DeleteAlbum', () => {
                         trackTitle: "title"
                     }
                 ],
-            totalDuration: 1547,
-            tracksCount: 3    
+                created: new Date(),
+                updated: null,
         })
         const inMemoryAlbumRespository = new InMemoryAlbumRespository(db)
         const deleteAlbum = new DeleteAlbum(inMemoryAlbumRespository)

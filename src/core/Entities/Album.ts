@@ -47,6 +47,6 @@ export class Album {
     this.props.tracks.push(props.tracks);
     this.props.albumTitle = props.albumTitle;
     this.props.artist = props.artist;
-    this.props.updated= props.updated;
+    this.props.updated = props.updated;
   }
 }

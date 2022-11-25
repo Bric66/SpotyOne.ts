@@ -11,16 +11,23 @@ export type AlbumInput = {
   tracks: Array<TrackProperties>;
 };
 
-export class CreateAlbum implements UseCase<Album, Promise<Album>> {
+export type CreateAlbumPropertiesInput = {
+  userId: string,
+  artist: string,
+  albumTitle: string,
+  file: string,
+  tracks: Array<TrackProperties>,
+}
+export class CreateAlbum implements UseCase<CreateAlbumPropertiesInput, Promise<Album>> {
   constructor(
     private readonly albumRepository: AlbumRepository,
     private readonly idGateway: IdGateway
   ) {}
 
-  async execute(input: Album): Promise<Album> {
+  async execute(input: CreateAlbumPropertiesInput): Promise<Album> {
     const isAlreadyCreated = await this.albumRepository.exist(
-      input.props.albumTitle,
-      input.props.artist
+      input.albumTitle,
+      input.artist
     );
     if (isAlreadyCreated) {
       throw new Error("Album already exists");
@@ -28,13 +35,13 @@ export class CreateAlbum implements UseCase<Album, Promise<Album>> {
     const albumId = this.idGateway.generate();
     const album = Album.create({
       albumId: albumId,
-      userId: input.props.userId,
-      artist: input.props.artist,
-      albumTitle: input.props.albumTitle,
-      file: input.props.file,
-      tracks: input.props.tracks,
+      userId: input.userId,
+      artist: input.artist,
+      albumTitle: input.albumTitle,
+      file: input.file,
+      tracks: input.tracks,
     });
     await this.albumRepository.create(album);
-    return input;
+    return album;
   }
 }
