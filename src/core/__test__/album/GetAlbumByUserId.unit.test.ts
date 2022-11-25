@@ -32,8 +32,8 @@ describe('Unit - GetAlbumById', () => {
                         trackTitle: "title"
                     }
                 ],
-            totalDuration: 1547,
-            tracksCount: 3    
+                created: new Date(),
+                updated: null
         })
         const inMemoryAlbumRespository = new InMemoryAlbumRespository(db)
         getAlbumByUserId = new GetAlbumByUserId(inMemoryAlbumRespository)

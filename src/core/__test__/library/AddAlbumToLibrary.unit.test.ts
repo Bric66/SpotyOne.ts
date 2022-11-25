@@ -25,8 +25,8 @@ describe('When I call AddAlbumToLibrary', () => {
             tracks: [],
             userId: "12345",
             file: "",
-            totalDuration: 1234,
-            tracksCount: 1234
+            created: new Date(),
+            updated: null,
         });
         dbAlbum.set(album.props.albumId, album);
 
