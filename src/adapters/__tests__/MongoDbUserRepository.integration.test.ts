@@ -7,6 +7,7 @@ import mongoose from "mongoose";
 describe("Integration - MongoDbUserRepository", () => {
   let mongoDbUserRepository: MongoDbUserRepository;
   let user: User;
+  let result: User;
 
   beforeAll(async () => {
     const databaseId = v4();
@@ -27,7 +28,7 @@ describe("Integration - MongoDbUserRepository", () => {
   });
 
   beforeEach(async () => {
-    await mongoDbUserRepository.create(user);
+    result = await mongoDbUserRepository.create(user);
   });
 
   afterEach(async () => {
@@ -40,7 +41,7 @@ describe("Integration - MongoDbUserRepository", () => {
   });
 
   it("Should save a user", async () => {
-    await mongoDbUserRepository.create(user);
+    await expect(result.props.userName).toEqual("user name");
   });
 
   it("Should get a user by email", async () => {
@@ -49,9 +50,9 @@ describe("Integration - MongoDbUserRepository", () => {
     expect(result.props.id).toEqual("12345");
   });
 
-  it("shoul throw if user email does not exist", async () => {
-    const result = () => mongoDbUserRepository.getByEmail("fakeEmail@example.com");
-    await expect(() => result()).rejects.toThrow();
+  it("should be falsy if user email does not exist", async () => {
+    const result = await mongoDbUserRepository.getByEmail("fakeEmail@example.com");
+    expect(result).toBeFalsy();
   })
   it("should get a user by id", async () => {
     const result = await mongoDbUserRepository.getById("12345");
@@ -81,8 +82,8 @@ describe("Integration - MongoDbUserRepository", () => {
 
   it("should delete a user", async () => {
     await mongoDbUserRepository.delete(user.props.id);
-    const result = () => mongoDbUserRepository.getByEmail("user@example.com");
-    await expect(() => result()).rejects.toThrow();
+    const result = await mongoDbUserRepository.getByEmail("fakeEmail@example.com");
+    expect(result).toBeFalsy();
   });
 });
 

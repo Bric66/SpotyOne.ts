@@ -87,6 +87,13 @@ describe('Integration - MongoDbAlbumRepository', () => {
         await expect(test).toBeTruthy();
     })
 
+    it('should return false if album presentation doesnt exist', async () => {
+        const result = await mongoDbAlbumRepository.exist(
+            "WMCA",
+            "village people"
+        );
+        await expect(result).toBeFalsy();
+    })
 
     it("Should save an album", async () => {
         await expect(result.props.albumTitle).toEqual("Album Title");
@@ -138,20 +145,13 @@ describe('Integration - MongoDbAlbumRepository', () => {
         const result = () => mongoDbAlbumRepository.getAlbumByTitle("wrong title");
         await expect(async () => result()).rejects.toThrow();
     })
+
     it("Should get all albums", async () => {
         await mongoDbAlbumRepository.create(album2);
         const result = await mongoDbAlbumRepository.getAlbums();
         await expect(result).toHaveLength(2);
     })
 
-
-    it('should return false if album presentation doesnt exist', async () => {
-        const result = await mongoDbAlbumRepository.exist(
-            "WMCA",
-            "village people"
-        );
-        await expect(result).toBeFalsy();
-    })
     it("Should delete album ", async () => {
         const result = await mongoDbAlbumRepository.deleteAlbum(album.props.albumId);
         await expect(result).toBeFalsy();
