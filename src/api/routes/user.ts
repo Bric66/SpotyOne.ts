@@ -31,9 +31,16 @@ userRouter.post("/signUp", async (req, res) => {
       userName: req.body.userName.trim(),
       email: req.body.email.toLowerCase().trim(),
       password: req.body.password,
+      libraryTitle: req.body.libraryTitle,
     };
 
     const user = await createUser.execute(body);
+
+    const library = await createLibrary.execute({
+      userId: user.props.id,
+      title: body.libraryTitle,
+      userLibraryId: user.props.libraryId,
+    });
 
     return res.status(201).send({
       id: user.props.id,
@@ -56,7 +63,6 @@ userRouter.post("/signIn", async (req, res) => {
     };
 
     const user = await connectUser.execute(body);
-console.log (user);
     const accessKey = jwt.sign(
       {
         id: user.props.id,
