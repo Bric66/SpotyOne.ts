@@ -22,7 +22,7 @@ const connectUser = new ConnectUser(mongoDbUserRepository, bcryptGateway);
 const updateUser = new UpdateUser(mongoDbUserRepository, bcryptGateway);
 
 userRouter.post("/signUp", async (req, res) => {
-  try {
+ try {
     const body = {
       userName: req.body.userName.trim(),
       email: req.body.email.toLowerCase().trim(),
@@ -31,7 +31,7 @@ userRouter.post("/signUp", async (req, res) => {
 
     const user = await createUser.execute(body);
 
-    return res.status(200).send({
+    return res.status(201).send({
       id: user.props.id,
       userName: user.props.userName,
       email: user.props.email,
@@ -52,7 +52,7 @@ userRouter.post("/signIn", async (req, res) => {
     };
 
     const user = await connectUser.execute(body);
-
+console.log (user);
     const accessKey = jwt.sign(
       {
         id: user.props.id,
@@ -62,6 +62,7 @@ userRouter.post("/signIn", async (req, res) => {
       },
       secretKey
     );
+
     return res.status(200).send({
       id: user.props.id,
       userName: user.props.userName,

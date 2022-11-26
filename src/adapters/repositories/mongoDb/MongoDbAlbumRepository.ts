@@ -1,7 +1,6 @@
 import {Album, AlbumProperties} from "../../../core/Entities/Album";
 import {AlbumRepository} from "../../../core/repositories/AlbumRepository";
 import {AlbumModel} from "./models/album";
-import {UserModel} from "./models/user";
 
 export class MongoDbAlbumRepository implements AlbumRepository {
 
