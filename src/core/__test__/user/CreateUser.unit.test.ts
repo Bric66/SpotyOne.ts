@@ -26,6 +26,7 @@ describe("When I call CreateUser ====>", () => {
       email: "jojo@gmail.com",
       password: "1234",
     });
+    expect(result.props.id).toBeTruthy();
     expect(result.props.userName).toEqual("jojo");
   });
 
