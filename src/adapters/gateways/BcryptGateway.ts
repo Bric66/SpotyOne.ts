@@ -9,4 +9,5 @@ export class BcryptGateway implements PasswordGateway {
     decrypt(password: string, hash: string): boolean {
         return bcrypt.compareSync(password, hash);
     }
+    
 }

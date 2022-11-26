@@ -8,9 +8,12 @@ import jwt from "jsonwebtoken";
 import { authorization } from "../middlewares/JwtAuthorizationMiddleware";
 import { AuthentifiedRequest } from "../types/AuthentifiedRequest";
 import { UpdateUser } from "../../core/Usecases/user/UpdateUser";
+import { MongoDbLibraryRepository } from "../../adapters/repositories/mongoDb/MongoDbLibraryRepository";
+import { CreateLibrary } from "../../core/Usecases/library/CreateLibrary";
 const userRouter = express.Router();
 const secretKey = process.env.SECRET_KEY;
 const mongoDbUserRepository = new MongoDbUserRepository();
+const mongoDbLibraryRepository = new MongoDbLibraryRepository()
 const bcryptGateway = new BcryptGateway();
 const v4IdGateway = new V4IdGateway();
 const createUser = new CreateUser(
@@ -20,6 +23,7 @@ const createUser = new CreateUser(
 );
 const connectUser = new ConnectUser(mongoDbUserRepository, bcryptGateway);
 const updateUser = new UpdateUser(mongoDbUserRepository, bcryptGateway);
+const createLibrary = new CreateLibrary(mongoDbLibraryRepository)
 
 userRouter.post("/signUp", async (req, res) => {
  try {

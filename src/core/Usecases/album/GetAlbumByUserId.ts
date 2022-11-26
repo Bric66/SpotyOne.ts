@@ -10,3 +10,4 @@ export class GetAlbumByUserId implements UseCase<string, Promise<Album>> {
         return Promise.resolve(album)
     }
 }
+

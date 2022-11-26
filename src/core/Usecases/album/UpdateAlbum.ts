@@ -1,3 +1,4 @@
+import { GetAlbumById } from './GetAlbumById';
 import { TrackProperties } from "./../../Entities/Album";
 import { AlbumRepository } from "./../../repositories/AlbumRepository";
 import { UseCase } from "./../Usecase";
@@ -8,25 +9,23 @@ export type UpdateAlbumInput = {
   tracks: TrackProperties;
   albumTitle: string;
   artist: string;
-  userId: string;
-  updated: Date;
+  albumId: string;
 };
 
 export class UpdateAlbum implements UseCase<UpdateAlbumInput, Promise<Album>> {
   constructor(private readonly albumRepository: AlbumRepository) {}
 
   async execute(input: UpdateAlbumInput): Promise<Album> {
-    const album = await this.albumRepository.getAlbumByUserId(input.userId);
+    const album = await this.albumRepository.getAlbumById(input.albumId);
     album.update({
       albumTitle: input.albumTitle,
       file: input.file,
       tracks: input.tracks,
       artist: input.artist,
-      updated : new Date(),
     });
 
     await this.albumRepository.updateAlbum(album);
 
-    return Promise.resolve(album);
+    return album;
   }
 }

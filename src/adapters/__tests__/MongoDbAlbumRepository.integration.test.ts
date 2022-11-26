@@ -110,7 +110,6 @@ describe('Integration - MongoDbAlbumRepository', () => {
                     trackId: "132354",
                     trackTitle: "title",
                 },
-            updated: new Date(),
         })
         const result = await mongoDbAlbumRepository.updateAlbum(album)
         await expect(result.props.albumTitle).toEqual("new album title");
@@ -149,6 +148,7 @@ describe('Integration - MongoDbAlbumRepository', () => {
     it("Should get all albums", async () => {
         await mongoDbAlbumRepository.create(album2);
         const result = await mongoDbAlbumRepository.getAlbums();
+        console.log(result);
         await expect(result).toHaveLength(2);
     })
 

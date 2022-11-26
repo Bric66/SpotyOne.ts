@@ -2,7 +2,7 @@ import { Album } from "../../Entities/Album";
 import { AlbumRepository } from "../../repositories/AlbumRepository";
 import { UseCase } from "../Usecase";
 
-export class GetAlbumById implements UseCase<string, Promise<Album>> {
+export class GetAlbumByTitle implements UseCase<string, Promise<Album>> {
   constructor(private readonly albumRepository: AlbumRepository) {}
 
   async execute(albumTitle: string): Promise<Album> {

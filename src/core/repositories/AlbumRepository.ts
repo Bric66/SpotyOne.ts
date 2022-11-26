@@ -1,4 +1,3 @@
-import { UpdateAlbumInput } from "./../Usecases/album/UpdateAlbum";
 import { Album } from "../Entities/Album";
 
 export interface AlbumRepository {
@@ -17,4 +16,5 @@ export interface AlbumRepository {
   getAlbumByUserId(userId: string): Promise<Album>;
 
   exist(albumTitle: string, artist: string): Promise<boolean>
+
 }
