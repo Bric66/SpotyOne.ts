@@ -17,6 +17,7 @@ export class Album {
   constructor(props: AlbumProperties) {
     this.props = props;
   }
+  
   static create(props: {
     albumId: string;
     albumTitle: string;
@@ -36,17 +37,17 @@ export class Album {
       updated: null,
     });
   }
+
   update(props: {
     file: string;
     tracks: TrackProperties;
     albumTitle: string;
     artist: string;
-    updated: Date;
   }) {
     this.props.file = props.file;
     this.props.tracks.push(props.tracks);
     this.props.albumTitle = props.albumTitle;
     this.props.artist = props.artist;
-    this.props.updated = props.updated;
+    this.props.updated = new Date();
   }
 }

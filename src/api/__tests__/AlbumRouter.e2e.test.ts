@@ -1,7 +1,11 @@
 import "dotenv/config";
+import { AlbumRepository } from "./../../core/repositories/AlbumRepository";
+import { AlbumModel } from "./../../adapters/repositories/mongoDb/models/album";
+import { Album } from "./../../core/Entities/Album";
+import { MongoDbAlbumRepository } from "./../../adapters/repositories/mongoDb/MongoDbAlbumRepository";
 import { sign } from "jsonwebtoken";
 import { v4 } from "uuid";
-import express, { response } from "express";
+import express from "express";
 import mongoose from "mongoose";
 import { albumRouter } from "../routes/album";
 import supertest from "supertest";
@@ -9,6 +13,8 @@ const app = express();
 
 describe("E2E - Album router", () => {
   let accessKey;
+  let album: Album;
+  let albumRepository: AlbumRepository;
 
   beforeAll(() => {
     accessKey = sign(
@@ -31,14 +37,41 @@ describe("E2E - Album router", () => {
       }
       console.info("Connected to mongodb");
     });
+    album = Album.create({
+      albumId: "1234",
+      userId: "1463165",
+      albumTitle: "Album Title",
+      artist: "Artist",
+      file: "hhtp://../album",
+      tracks: [
+        {
+          trackId: "132354",
+          trackTitle: "title",
+        },
+        {
+          trackId: "789798",
+          trackTitle: "title",
+        },
+        {
+          trackId: "4654654687",
+          trackTitle: "title",
+        },
+      ],
+    });
+    albumRepository = new MongoDbAlbumRepository();
   });
 
+  beforeEach(async () => {});
+
+  afterEach(async () => {
+    await AlbumModel.collection.drop();
+  });
   afterAll(async () => {
     await mongoose.connection.dropDatabase();
     await mongoose.connection.close();
   });
 
-  it("should post /album", async () => {
+  it("should post /album/create", async () => {
     await supertest(app)
       .post("/album/create")
       .set("access_key", accessKey)
@@ -46,19 +79,19 @@ describe("E2E - Album router", () => {
         albumTitle: "newwwww",
         file: "http://localhost",
         tracks: [
-                  {
-                    trackId: "56464654",
-                    trackTitle: "track title 1",
-                  },
-                  {
-                    trackId: "654964984684",
-                    trackTitle: "track title 2",
-                  },
-                  {
-                    trackId: "687984684684",
-                    trackTitle: "track title 3",
-                  },
-                ],
+          {
+            trackId: "56464654",
+            trackTitle: "track title 1",
+          },
+          {
+            trackId: "654964984684",
+            trackTitle: "track title 2",
+          },
+          {
+            trackId: "687984684684",
+            trackTitle: "track title 3",
+          },
+        ],
         userId: "989898989",
         artist: "artist name",
       })
@@ -68,5 +101,92 @@ describe("E2E - Album router", () => {
         expect(responseBody.tracks.length).toEqual(3);
       })
       .expect(201);
+  });
+
+  it("should get /album/:id ", async () => {
+    const result = await albumRepository.create(album);
+    await supertest(app)
+      .get(`/album/id/${result.props.albumId}`)
+      .set("access_key", accessKey)
+      .expect((response) => {
+        const responseBody = response.body;
+        expect(responseBody.artist).toEqual("Artist");
+        expect(responseBody.userId).toEqual("1463165");
+        expect(responseBody.albumId).toEqual("1234");
+      });
+  });
+
+  it("should get /album/:userId ", async () => {
+    const result = await albumRepository.create(album);
+
+    await supertest(app)
+      .get(`/album/userId/${result.props.userId}`)
+      .set("access_key", accessKey)
+      .expect((response) => {
+        const responseBody = response.body;
+        expect(responseBody.artist).toEqual("Artist");
+        expect(responseBody.albumId).toBeTruthy();
+      })
+      .expect(200);
+  });
+
+  it("should get /albums", async () => {
+    await albumRepository.create(album);
+    await supertest(app)
+      .get(`/album/all`)
+      .set("access_key", accessKey)
+      .expect((response) => {
+        const responseBody = response.body;
+        expect(responseBody).toHaveLength(1);
+      })
+      .expect(200);
+  });
+
+  it("should get /album/:title", async () => {
+    const result = await albumRepository.create(album);
+    await supertest(app)
+      .get(`/album/title/${result.props.albumTitle}`)
+      .set("access_key", accessKey)
+      .expect((response) => {
+        const responseBody = response.body;
+        expect(responseBody.albumTitle).toEqual("Album Title");
+      })
+      .expect(200);
+  });
+
+  it("should patch /album", async () => {
+    await albumRepository.create(album);
+    await supertest(app)
+      .patch("/album")
+      .set("access_key", accessKey)
+      .send({
+        file: "http://newFilePath",
+        tracks: {
+                  trackId: "newId",
+                  trackTitle: "new title",
+                },
+        albumTitle: "new album title",
+        artist: "newArtist",
+        albumId: "1234",
+      })
+      .expect((response) => {
+        const responseBody = response.body;
+        expect(responseBody.artist).toEqual("newArtist");
+        expect(responseBody.tracks).toHaveLength(4);
+      })
+      .expect(200);
+  });
+
+  it("should delete /album", async () => {
+    await albumRepository.create(album);
+    await supertest(app)
+      .delete(`/album/${album.props.albumId}`)
+      .set("access_key", accessKey)
+      .expect((response) => {
+        const responseBody = response.body;
+        expect(responseBody.artist).toBeFalsy
+        expect(responseBody.id).toBeFalsy       
+      })
+      .expect(200);
   });
 });
