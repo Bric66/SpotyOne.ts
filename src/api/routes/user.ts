@@ -36,7 +36,7 @@ userRouter.post("/signUp", async (req, res) => {
 
     const user = await createUser.execute(body);
 
-    const library = await createLibrary.execute({
+    await createLibrary.execute({
       userId: user.props.id,
       title: body.libraryTitle,
       userLibraryId: user.props.libraryId,
