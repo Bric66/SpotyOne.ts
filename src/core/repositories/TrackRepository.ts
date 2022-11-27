@@ -6,6 +6,8 @@ export interface TrackRepository {
 
     getByUserId(userId: string): Promise<Track>;
 
+    getTracks(): Promise<Object[]>;
+
     update(input: Track): Promise<Track>;
 
     delete(userId: string): Promise<void>;

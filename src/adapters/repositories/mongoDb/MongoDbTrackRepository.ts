@@ -30,6 +30,16 @@ export class MongoDbTrackRepository implements TrackRepository {
         return trackFound;
     }
 
+    async getTracks(): Promise<Object[]> {
+        const tracks = await TrackModel.find();
+        const result = tracks.map(({ trackTitle, artist, userId }) => ({
+            trackTitle,
+            artist,
+            userId,
+        }));
+        return result;
+    }
+
     update(input: Track): Promise<Track> {
         AlbumModel.findOneAndUpdate(
             {id: input.props.userId},

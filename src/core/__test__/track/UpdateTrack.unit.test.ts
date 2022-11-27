@@ -29,9 +29,9 @@ describe("unit - CreateTrack", () => {
       duration: 1500,
       artist: "new artist name",
       file: "http://newlink",
-      updated: new Date(),
       userId: track.props.userId,
     });
     expect(result.props.trackTitle).toEqual("new title track");
+    expect(result.props.updated).toBeTruthy();
   });
 });

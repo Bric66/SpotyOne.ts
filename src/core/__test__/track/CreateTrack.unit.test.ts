@@ -27,7 +27,6 @@ describe("unit - CreateTrack", () => {
   it("should create a track", async () => {
     const result = await createTrack.execute({
       userId: "9999",
-      trackId: "1111",
       artist: "new artist name",
       duration: 1000,
       file: "http://track.example",
@@ -39,7 +38,6 @@ describe("unit - CreateTrack", () => {
     const result = () =>
       createTrack.execute({
         userId: "9999",
-        trackId: "1111",
         artist: "new artist name",
         duration: 1000,
         file: "http://track.example",

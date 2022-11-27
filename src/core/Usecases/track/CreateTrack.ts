@@ -4,7 +4,6 @@ import {Track} from "../../Entities/Track";
 import {UseCase} from "../Usecase";
 
 export type TrackInput = {
-    trackId: string;
     trackTitle: string;
     artist: string;
     duration: number;

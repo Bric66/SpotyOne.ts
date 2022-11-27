@@ -1,6 +1,6 @@
 import "dotenv/config";
 import { sign } from "jsonwebtoken";
-import express from "express";
+import express, {request} from "express";
 import { v4 } from "uuid";
 import mongoose from "mongoose";
 import { userRouter } from "../routes/user";
@@ -81,7 +81,7 @@ describe("E2E - User Router", () => {
       .expect(200);
   });
 
-  it("Should post/user/update", async () => {
+  it("Should patch/user", async () => {
     await userRepository.create(user);
 
     accessKey = sign(
@@ -95,7 +95,7 @@ describe("E2E - User Router", () => {
     );
 
     await supertest(app)
-      .post("/user/update")
+      .patch("/user")
       .set("access_key", accessKey)
       .send({
         userName: "fifibrindacier",
@@ -105,7 +105,35 @@ describe("E2E - User Router", () => {
       .expect((response) => {
         const responseBody = response.body;
         expect(responseBody.email).toEqual("fifibrindacier@gmail.com");
+        expect(responseBody.updated).toBeTruthy();
       })
       .expect(200);
   });
+
+  it("Should delete/user", async () => {
+    await userRepository.create(user);
+
+    accessKey = sign(
+        {
+          id: user.props.id,
+          userName: user.props.userName,
+          email: user.props.email,
+          userLibraryId: user.props.libraryId,
+        },
+        "maytheforcebewithyou"
+    );
+
+    await supertest(app)
+        .delete("/user/:id")
+        .set("access_key", accessKey)
+        .send({
+           id: user.props.id,
+        })
+        .expect((response) => {
+          const responseBody = response.body;
+         expect(responseBody.userName).toBeFalsy();
+        })
+        .expect(200);
+  });
+
 });
