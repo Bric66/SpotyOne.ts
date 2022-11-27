@@ -10,6 +10,7 @@ import { AuthentifiedRequest } from "../types/AuthentifiedRequest";
 import { UpdateUser } from "../../core/Usecases/user/UpdateUser";
 import { MongoDbLibraryRepository } from "../../adapters/repositories/mongoDb/MongoDbLibraryRepository";
 import { CreateLibrary } from "../../core/Usecases/library/CreateLibrary";
+import {DeleteUser} from "../../core/Usecases/user/DeleteUser";
 const userRouter = express.Router();
 const secretKey = process.env.SECRET_KEY;
 const mongoDbUserRepository = new MongoDbUserRepository();
@@ -23,7 +24,8 @@ const createUser = new CreateUser(
 );
 const connectUser = new ConnectUser(mongoDbUserRepository, bcryptGateway);
 const updateUser = new UpdateUser(mongoDbUserRepository, bcryptGateway);
-const createLibrary = new CreateLibrary(mongoDbLibraryRepository)
+const createLibrary = new CreateLibrary(mongoDbLibraryRepository);
+const deleteUser = new DeleteUser(mongoDbUserRepository)
 
 userRouter.post("/signUp", async (req, res) => {
  try {
@@ -89,7 +91,7 @@ userRouter.post("/signIn", async (req, res) => {
 
 userRouter.use(authorization);
 
-userRouter.patch("/update", async (req: AuthentifiedRequest, res) => {
+userRouter.patch("/", async (req: AuthentifiedRequest, res) => {
   try {
     const body = {
       userName: req.body.userName.trim(),
@@ -117,8 +119,8 @@ userRouter.patch("/update", async (req: AuthentifiedRequest, res) => {
   }
 });
 
-/*
-userRouter.delete("/delete",async (req: AuthentifiedRequest, res) => {
+
+userRouter.delete("/:id",async (req: AuthentifiedRequest, res) => {
     try {
 
         await deleteUser.execute({
@@ -133,6 +135,6 @@ userRouter.delete("/delete",async (req: AuthentifiedRequest, res) => {
         })
     }
 });
-*/
+
 
 export { userRouter };

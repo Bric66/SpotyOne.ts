@@ -26,7 +26,7 @@ describe('Integration - MongoDbTrackRepository', () => {
             userId: "1234",
             trackTitle: "wmca",
             artist: "village people",
-            file: "hhtp://../album",
+            file: "hhtp://../track",
             duration: 3000,
             trackId: "5678",
         });
@@ -114,4 +114,10 @@ describe('Integration - MongoDbTrackRepository', () => {
         await expect(async () => result()).rejects.toThrow();
     })
 
+    it("Should get all tracks", async () => {
+        await mongoDbTrackRepository.create(track);
+        const result = await mongoDbTrackRepository.getTracks();
+        console.log(result);
+        await expect(result).toHaveLength(2);
+    })
 })

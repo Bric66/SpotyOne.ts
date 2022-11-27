@@ -7,7 +7,6 @@ export type TrackUpdatedInput = {
   duration: number;
   artist: string;
   file: string;
-  updated: Date;
   userId: string;
 };
 
