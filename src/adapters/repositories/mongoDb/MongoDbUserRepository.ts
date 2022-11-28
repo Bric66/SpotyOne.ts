@@ -1,12 +1,16 @@
 import {UserRepository} from "../../../core/repositories/UserRepository";
-import {User, UserProperties} from "../../../core/Entities/User";
+import {User} from "../../../core/Entities/User";
 import {UserModel} from "./models/user";
+import {MongoDbUserMapper} from "./mappers/MongoDbUserMapper";
+
+const mongoDbUserMapper = new MongoDbUserMapper();
 
 export class MongoDbUserRepository implements UserRepository {
 
     async create(user: User): Promise<User> {
-        const userModel = new UserModel(user.props);
-        await userModel.save().then(() => console.log('User created successfully'));
+        const toUserModel = mongoDbUserMapper.toUserModel(user)
+        const userModel = new UserModel(toUserModel);
+        await userModel.save();
         return user;
     }
 
@@ -15,17 +19,7 @@ export class MongoDbUserRepository implements UserRepository {
         if (!user) {
             return null
         }
-        const userProperties: UserProperties = {
-            id: user.id,
-            userName: user.userName,
-            email: user.email,
-            password: user.password,
-            created: user.created,
-            updated: user.updated,
-            libraryId: user.libraryId,
-        }
-        const userFound = new User(userProperties);
-        return userFound;
+        return mongoDbUserMapper.toUser(user);
     };
 
     async getById(id: string): Promise<User> {
@@ -33,28 +27,19 @@ export class MongoDbUserRepository implements UserRepository {
         if (!user) {
             throw new Error("user not found");
         }
-        const userProperties: UserProperties = {
-            id: user.id,
-            userName: user.userName,
-            email: user.email,
-            password: user.password,
-            created: user.created,
-            updated: user.updated,
-            libraryId: user.libraryId,
-        }
-        const userFound = new User(userProperties);
-        return userFound;
+        return mongoDbUserMapper.toUser(user);
     };
 
     async update(input: User): Promise<User> {
+        const toUserModel = mongoDbUserMapper.toUserModel(input)
         await UserModel.findOneAndUpdate(
-            {id: input.props.id},
+            {id: toUserModel.id},
             {
                 $set: {
-                    userName: input.props.userName,
-                    email: input.props.email,
-                    password: input.props.password,
-                    updated: input.props.updated,
+                    userName: toUserModel.userName,
+                    email: toUserModel.email,
+                    password: toUserModel.password,
+                    updated: toUserModel.updated,
                 }
             },
             {new: true}
@@ -64,7 +49,7 @@ export class MongoDbUserRepository implements UserRepository {
     };
 
     async delete(userId: string): Promise<void> {
-        await UserModel.deleteOne({id: userId}).then(() => console.log('User deleted successfully'));
+        await UserModel.deleteOne({id: userId})
         return;
     };
 }

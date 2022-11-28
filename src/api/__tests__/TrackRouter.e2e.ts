@@ -101,7 +101,7 @@ describe("E2E - Track router", () => {
             .expect((response) => {
                 console.log(response)
                 const responseBody = response.body;
-                expect(responseBody.albumTitle).toEqual("wmca");
+                expect(responseBody.trackTitle).toEqual("wmca");
             })
             .expect(200);
     });

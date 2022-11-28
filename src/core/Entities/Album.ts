@@ -2,6 +2,7 @@ export type TrackProperties = {
   trackId: string;
   trackTitle: string;
 };
+
 export type AlbumProperties = {
   albumId: string;
   albumTitle: string;
