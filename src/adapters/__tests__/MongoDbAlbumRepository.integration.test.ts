@@ -8,6 +8,7 @@ describe('Integration - MongoDbAlbumRepository', () => {
 
     let album: Album;
     let album2: Album;
+    let album3: Album;
     let result: Album
     const mongoDbAlbumRepository = new MongoDbAlbumRepository();
 
@@ -17,7 +18,7 @@ describe('Integration - MongoDbAlbumRepository', () => {
             if (err) {
                 throw err;
             }
-           // console.info("Connected to mongodb");
+            console.info("Connected to mongodb");
         });
 
         album = Album.create({
@@ -62,6 +63,30 @@ describe('Integration - MongoDbAlbumRepository', () => {
                 },
             ],
         });
+
+        album3 = new Album({
+            albumId: "123456789",
+            userId: "userId",
+            albumTitle: "Album Title 3",
+            artist: "Album Artist 3",
+            file: "hhtp://../album",
+            tracks:
+                [{
+                    trackId: "132354",
+                    trackTitle: "title"
+                },
+                    {
+                        trackId: "789798",
+                        trackTitle: "title"
+                    },
+                    {
+                        trackId: "4654654687",
+                        trackTitle: "title"
+                    }
+                ],
+            created: new Date(10),
+            updated: null,
+        })
     });
 
     beforeEach(async () => {
@@ -153,5 +178,18 @@ describe('Integration - MongoDbAlbumRepository', () => {
     it("Should delete album ", async () => {
         const result = await mongoDbAlbumRepository.deleteAlbum(album.props.albumId);
         await expect(result).toBeFalsy();
+    })
+
+    it("Should get all albums by date", async () => {
+        await mongoDbAlbumRepository.create(album2);
+        await mongoDbAlbumRepository.create(album3);
+        const result = await mongoDbAlbumRepository.getAlbumsByDate();
+        expect(result[0]).toEqual({
+            albumTitle: 'Album Title 3',
+            artist: 'Album Artist 3',
+            created: new Date(10)
+        })
+
+
     })
 })

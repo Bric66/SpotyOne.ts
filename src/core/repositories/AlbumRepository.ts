@@ -5,6 +5,8 @@ export interface AlbumRepository {
 
   getAlbums(): Promise<Object[]>;
 
+  getAlbumsByDate(): Promise<Object[]>;
+
   getAlbumById(albumId: string): Promise<Album>;
 
   getAlbumByTitle(albumTitle: string) : Promise<Album>;

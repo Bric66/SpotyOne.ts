@@ -5,8 +5,8 @@ export type userModel = {
   userName: string;
   email: string;
   password: string;
-  created: Date;
-  updated?: Date;
+  created: number;
+  updated?: number;
   libraryId: string;
 };
 
@@ -28,11 +28,11 @@ const userSchema = new Schema({
     required: true,
   },
   created: {
-    type: Date,
+    type: Number,
     required: true,
   },
   updated: {
-    type: Date,
+    type: Number,
     required: false,
   },
   libraryId: {

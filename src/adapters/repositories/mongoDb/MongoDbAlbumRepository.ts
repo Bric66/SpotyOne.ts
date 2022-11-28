@@ -1,4 +1,4 @@
-import {Album } from "../../../core/Entities/Album";
+import {Album} from "../../../core/Entities/Album";
 import {AlbumRepository} from "../../../core/repositories/AlbumRepository";
 import {AlbumModel} from "./models/album";
 import {MongoDbAlbumMapper} from "./mappers/MongoDbAlbumMapper";
@@ -32,6 +32,25 @@ export class MongoDbAlbumRepository implements AlbumRepository {
         return Promise.resolve(input);
     }
 
+    async getAlbums(): Promise<Object[]> {
+        const albums = await AlbumModel.find();
+        const result = albums.map(({albumTitle, artist, userId}) => ({
+            albumTitle, artist, userId
+        }));
+        return result;
+    }
+
+    async getAlbumsByDate(): Promise<Object[]> {
+        const albums = await AlbumModel.find();
+        albums.sort((a, b) => a.created - b.created);
+        const result = await albums.map(({albumTitle, artist, created}) => ({
+            albumTitle : albumTitle,
+            artist : artist,
+            created : new Date(created)
+        }));
+        return result
+    }
+
     async getAlbumById(albumId: string): Promise<Album> {
 
         const album = await AlbumModel.findOne({albumId: albumId});
@@ -57,15 +76,6 @@ export class MongoDbAlbumRepository implements AlbumRepository {
         return mongoDbAlbumMapper.toAlbum(album);
     }
 
-    async getAlbums(): Promise<Object[]> {
-        const albums = await AlbumModel.find();
-        const result = albums.map(({albumTitle, artist, userId}) => ({
-            albumTitle,
-            artist,
-            userId,
-        }));
-        return result;
-    }
 
     async exist(albumTitle: string, artist: string): Promise<boolean> {
         const albumExist = await AlbumModel.findOne({
