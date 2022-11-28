@@ -3,7 +3,6 @@ import { TrackRepository } from "../../repositories/TrackRepository";
 import { UseCase } from "../Usecase";
 import { Library } from "../../Entities/Library";
 
-
 export type AddTrackToLibraryInput = {
   userId: string;
   trackTitle: string;
@@ -27,7 +26,7 @@ export class AddTrackToLibrary
 
     library.addTrack({
       trackId: track.props.trackId,
-      title: track.props.trackTitle,
+      trackTitle: track.props.trackTitle,
     });
 
     await this.libraryRepository.update(library);

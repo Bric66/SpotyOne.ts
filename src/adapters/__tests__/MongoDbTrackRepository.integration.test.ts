@@ -49,7 +49,7 @@ describe('Integration - MongoDbTrackRepository', () => {
             "wmca",
             "village people",
         );
-        console.log();
+
         await expect(test).toBeTruthy();
     })
 
@@ -117,7 +117,6 @@ describe('Integration - MongoDbTrackRepository', () => {
     it("Should get all tracks", async () => {
         await mongoDbTrackRepository.create(track);
         const result = await mongoDbTrackRepository.getTracks();
-        console.log(result);
         await expect(result).toHaveLength(2);
     })
 })

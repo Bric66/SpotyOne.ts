@@ -4,7 +4,7 @@ export type AlbumLibraryProperties = {
 }
 export type TrackLibraryProperties = {
   trackId: string;
-  title: string;
+  trackTitle: string;
 }
 export type LibraryProperties = {
   userId: string;

@@ -1,13 +1,16 @@
+import { MongoDbTrackMapper } from './mappers/MongoDbTrackMapper';
 import {TrackRepository} from "../../../core/repositories/TrackRepository";
 import {AlbumModel} from "./models/album";
 import {Track, TrackProperties} from "../../../core/Entities/Track";
 import {TrackModel} from "./models/track";
+const mongoDbTrackMapper = new MongoDbTrackMapper()
 
 export class MongoDbTrackRepository implements TrackRepository {
 
     async create(track: Track): Promise<Track> {
-        const trackModel = new TrackModel(track.props);
-        await trackModel.save().then(() => console.log("Track created successfully"));
+        const toTrackModel = mongoDbTrackMapper.toTrackModel(track)
+        const trackModel = new TrackModel(toTrackModel);
+        await trackModel.save()
         return track;
     }
 
@@ -16,18 +19,9 @@ export class MongoDbTrackRepository implements TrackRepository {
         if (!track) {
             throw new Error('Track not found');
         }
-        const trackProperties: TrackProperties = {
-            trackTitle: track.trackTitle,
-            duration: track.duration,
-            artist: track.artist,
-            file: track.file,
-            updated: track.updated,
-            userId: track.userId,
-            trackId: track.trackId,
-            created: track.created,
-        }
-        const trackFound = new Track(trackProperties);
-        return trackFound;
+
+        return mongoDbTrackMapper.toTrack(track)
+   
     }
 
     async getTracks(): Promise<Object[]> {
@@ -41,27 +35,27 @@ export class MongoDbTrackRepository implements TrackRepository {
     }
 
     update(input: Track): Promise<Track> {
+        const track = mongoDbTrackMapper.toTrackModel(input)
         AlbumModel.findOneAndUpdate(
-            {id: input.props.userId},
+            {id: track.userId},
             {
                 $set: {
 
-                    trackTitle: input.props.trackTitle,
-                    duration: input.props.duration,
-                    artist: input.props.artist,
-                    file: input.props.file,
-                    updated: input.props.updated
+                    trackTitle: track.trackTitle,
+                    duration: track.duration,
+                    artist: track.artist,
+                    file: track.file,
+                    updated: track.updated
 
                 }
             },
             {new: true}
         )
-        console.log('Track updated successfully');
         return Promise.resolve(input);
     }
 
     async delete(trackId: string): Promise<void> {
-        await TrackModel.deleteOne({trackId: trackId}).then(() => console.log('Track deleted successfully'));
+        await TrackModel.deleteOne({trackId: trackId})
         return;
     }
 
@@ -70,18 +64,7 @@ export class MongoDbTrackRepository implements TrackRepository {
         if (!track) {
             throw new Error('Track not found');
         }
-        const trackProperties: TrackProperties = {
-            trackTitle: track.trackTitle,
-            duration: track.duration,
-            artist: track.artist,
-            file: track.file,
-            updated: track.updated,
-            userId: track.userId,
-            trackId: track.trackId,
-            created: track.created,
-        }
-        const trackFound = new Track(trackProperties);
-        return trackFound;
+        return mongoDbTrackMapper.toTrack(track)
     }
 
     async getByTitle(trackTitle: string): Promise<Track> {
@@ -89,18 +72,7 @@ export class MongoDbTrackRepository implements TrackRepository {
         if (!track) {
             throw new Error('Track not found');
         }
-        const trackProperties: TrackProperties = {
-            trackTitle: track.trackTitle,
-            duration: track.duration,
-            artist: track.artist,
-            file: track.file,
-            updated: track.updated,
-            userId: track.userId,
-            trackId: track.trackId,
-            created: track.created,
-        }
-        const trackFound = new Track(trackProperties);
-        return trackFound;
+        return mongoDbTrackMapper.toTrack(track)
 
     }
 

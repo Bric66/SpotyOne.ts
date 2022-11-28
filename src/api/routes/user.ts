@@ -1,3 +1,4 @@
+import { DeleteLibrary } from './../../core/Usecases/library/DeleteLibrary';
 import express from "express";
 import { CreateUser } from "../../core/Usecases/user/CreateUser";
 import { MongoDbUserRepository } from "../../adapters/repositories/mongoDb/MongoDbUserRepository";
@@ -41,7 +42,7 @@ userRouter.post("/signUp", async (req, res) => {
     await createLibrary.execute({
       userId: user.props.id,
       title: body.libraryTitle,
-      userLibraryId: user.props.libraryId,
+      userLibraryId: user.props.libraryId, 
     });
 
     return res.status(201).send({

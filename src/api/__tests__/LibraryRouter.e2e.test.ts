@@ -73,7 +73,7 @@ describe("E2E Library router", () => {
       tracks: [
         {
           trackId: "6666",
-          title: "title name ",
+          trackTitle: "title name ",
         },
       ],
     });
@@ -160,7 +160,6 @@ describe("E2E Library router", () => {
         title: "Album Title",
       })
       .expect((response) => {
-        console.log(response);
         const responseBody = response.body;
         expect(responseBody.albums).toHaveLength(2);
       });

@@ -23,7 +23,7 @@ const deleteAlbum = new DeleteAlbum(mongoDbAlbumRepository);
 
 albumRouter.use(authorization);
 
-albumRouter.post("/create", async (req: AuthentifiedRequest, res) => {
+albumRouter.post("/", async (req: AuthentifiedRequest, res) => {
   const body = {
     albumTitle: req.body.albumTitle,
     file: req.body.file,
@@ -35,25 +35,19 @@ albumRouter.post("/create", async (req: AuthentifiedRequest, res) => {
   return res.status(201).send(album.props);
 });
 
-albumRouter.get("/id/:id", async (req: AuthentifiedRequest, res) => {
+albumRouter.get("/:id", async (req: AuthentifiedRequest, res) => {
   const albumId = req.params.id;
   const album = await getAlbumById.execute(albumId);
   return res.status(200).send(album.props);
 });
 
-albumRouter.get("/userId/:userId", async (req: AuthentifiedRequest, res) => {
+albumRouter.get("/:userId/mine", async (req: AuthentifiedRequest, res) => {
   const userId = req.params.userId;
   const album = await getAlbumByUserId.execute(userId);
   return res.status(200).send(album.props);
 });
 
-albumRouter.get("/title/:title", async (req: AuthentifiedRequest, res) => {
-  const title = req.params.title;
-  const album = await getAlbumByTitle.execute(title);
-  return res.status(200).send(album.props);
-});
-
-albumRouter.get("/all", async (req: AuthentifiedRequest, res) => {
+albumRouter.get("/", async (req: AuthentifiedRequest, res) => {
   const album = await getAlbums.execute();
   return res.status(200).send(album);
 });

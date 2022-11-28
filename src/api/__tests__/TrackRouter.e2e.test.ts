@@ -9,9 +9,7 @@ import {TrackRepository} from "../../core/repositories/TrackRepository";
 import { trackRouter} from "../routes/track";
 import {MongoDbTrackRepository} from "../../adapters/repositories/mongoDb/MongoDbTrackRepository";
 import {TrackModel} from "../../adapters/repositories/mongoDb/models/track";
-
 const app = express();
-
 
 describe("E2E - Track router", () => {
     let accessKey;
@@ -99,7 +97,6 @@ describe("E2E - Track router", () => {
             .get(`/track/title/${result.props.trackTitle}`)
             .set("access_key", accessKey)
             .expect((response) => {
-                console.log(response)
                 const responseBody = response.body;
                 expect(responseBody.trackTitle).toEqual("wmca");
             })

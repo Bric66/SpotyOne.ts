@@ -17,7 +17,7 @@ describe('Unit - UpdateLibrary', () => {
             albums: [],
             tracks: [
                         {
-                        title: "kit kat",
+                        trackTitle: "kit kat",
                         trackId: "8888",  
 
                         }
@@ -46,7 +46,7 @@ describe('Unit - UpdateLibrary', () => {
             userId: "12345"         
         })
         expect(result.props.tracks).toHaveLength(2)
-        expect(result.props.tracks[1].title).toEqual("my track title")
+        expect(result.props.tracks[1].trackTitle).toEqual("my track title")
         expect(result.props.tracks[1].trackId).toEqual("9999")
     })
 

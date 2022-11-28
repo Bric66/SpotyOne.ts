@@ -1,4 +1,4 @@
-import {Album, AlbumProperties} from "../../../core/Entities/Album";
+import {Album } from "../../../core/Entities/Album";
 import {AlbumRepository} from "../../../core/repositories/AlbumRepository";
 import {AlbumModel} from "./models/album";
 import {MongoDbAlbumMapper} from "./mappers/MongoDbAlbumMapper";
