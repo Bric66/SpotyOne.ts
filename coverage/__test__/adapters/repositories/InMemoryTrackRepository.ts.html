@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">28.57% </span>
+                <span class="strong">21.42% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>8/28</span>
+                <span class='fraction'>6/28</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">25% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/4</span>
+                <span class='fraction'>0/4</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">29.16% </span>
+                <span class="strong">20.83% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>7/24</span>
+                <span class='fraction'>5/24</span>
             </div>
         
             
@@ -133,37 +133,37 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -188,10 +188,10 @@ export class InMemoryTrackRepository implements TrackRepository {
 <span class="cstat-no" title="statement not covered" >        return input</span>
     }
 &nbsp;
-    async <span class="fstat-no" title="function not covered" >getByUserId(</span>userId: string): Promise&lt;Track&gt; {
-        const values = <span class="cstat-no" title="statement not covered" >Array.from(this.db.values());</span>
-        const track = <span class="cstat-no" title="statement not covered" >values.find(<span class="fstat-no" title="function not covered" >track </span>=&gt; <span class="cstat-no" title="statement not covered" >track.props.userId === userId)</span>;</span>
-<span class="cstat-no" title="statement not covered" >        return track</span>
+    async getByUserId(userId: string): Promise&lt;Track&gt; {
+        const values = Array.from(this.db.values());
+        const track = values.find(track =&gt; track.props.userId === userId);
+        return track
     }
 &nbsp;
 <span class="fstat-no" title="function not covered" >    update(</span>input: Track): Promise&lt;Track&gt; {
@@ -213,13 +213,13 @@ export class InMemoryTrackRepository implements TrackRepository {
 <span class="cstat-no" title="statement not covered" >        throw new Error('Method not implemented.');</span>
     }
 &nbsp;
-    async getByTitle(trackTitle: string): Promise&lt;Track&gt; {
-        const values = Array.from(this.db.values());
-        const track = values.find(track =&gt; track.props.trackTitle === trackTitle);
-        if (!track) {
-            throw new Error('track not found');
+    async <span class="fstat-no" title="function not covered" >getByTitle(</span>trackTitle: string): Promise&lt;Track&gt; {
+        const values = <span class="cstat-no" title="statement not covered" >Array.from(this.db.values());</span>
+        const track = <span class="cstat-no" title="statement not covered" >values.find(<span class="fstat-no" title="function not covered" >track </span>=&gt; <span class="cstat-no" title="statement not covered" >track.props.trackTitle === trackTitle)</span>;</span>
+<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>if (!track) {</span>
+<span class="cstat-no" title="statement not covered" >            throw new Error('track not found');</span>
         }
-        return track
+<span class="cstat-no" title="statement not covered" >        return track</span>
     }
 &nbsp;
     async <span class="fstat-no" title="function not covered" >exist(</span>trackTitle: string, artist: string): Promise&lt;Boolean&gt; {
@@ -238,7 +238,7 @@ export class InMemoryTrackRepository implements TrackRepository {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-11-28T11:02:15.093Z
+                at 2022-11-28T14:03:25.707Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

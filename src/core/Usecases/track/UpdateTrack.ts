@@ -20,7 +20,6 @@ export class UpdateTrack implements UseCase<TrackUpdatedInput, Track> {
       duration: input.duration,
       artist: input.artist,
       file: input.file,
-      updated: new Date(),
     });
     return track;
   }

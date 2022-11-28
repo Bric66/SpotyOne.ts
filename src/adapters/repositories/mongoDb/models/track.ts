@@ -33,11 +33,11 @@ const trackSchema = new Schema({
     required: true,
   },
   created: {
-    type: Date,
+    type: Number,
     required: true,
   },
   updated: {
-    type: Date,
+    type: Number,
     required: false,
   },
   userId: {

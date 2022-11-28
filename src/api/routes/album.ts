@@ -8,8 +8,8 @@ import { authorization } from "../middlewares/JwtAuthorizationMiddleware";
 import { GetAlbumByUserId } from "../../core/Usecases/album/GetAlbumByUserId";
 import { GetAlbums } from "../../core/Usecases/album/getAlbums";
 import { UpdateAlbum } from "../../core/Usecases/album/UpdateAlbum";
-import { GetAlbumByTitle } from "../../core/Usecases/album/GetAlbumByTitle";
 import { DeleteAlbum } from "../../core/Usecases/album/DeleteAlbum";
+import {GetAlbumsByDate} from "../../core/Usecases/album/GetAlbumsByDate";
 const albumRouter = express.Router();
 const mongoDbAlbumRepository = new MongoDbAlbumRepository();
 const v4Gateway = new V4IdGateway();
@@ -17,9 +17,9 @@ const createAlbum = new CreateAlbum(mongoDbAlbumRepository, v4Gateway);
 const getAlbumById = new GetAlbumById(mongoDbAlbumRepository);
 const getAlbumByUserId = new GetAlbumByUserId(mongoDbAlbumRepository);
 const getAlbums = new GetAlbums(mongoDbAlbumRepository);
-const getAlbumByTitle = new GetAlbumByTitle(mongoDbAlbumRepository);
 const updateAlbum = new UpdateAlbum(mongoDbAlbumRepository);
 const deleteAlbum = new DeleteAlbum(mongoDbAlbumRepository);
+const getAlbumsByDate = new GetAlbumsByDate(mongoDbAlbumRepository)
 
 albumRouter.use(authorization);
 
@@ -51,6 +51,12 @@ albumRouter.get("/", async (req: AuthentifiedRequest, res) => {
   const album = await getAlbums.execute();
   return res.status(200).send(album);
 });
+
+albumRouter.get("/date", async (req: AuthentifiedRequest, res) => {
+  const album = await getAlbumsByDate.execute();
+  return res.status(200).send(album);
+});
+
 
 albumRouter.patch("/", async (req: AuthentifiedRequest, res) => {
   const body = {
