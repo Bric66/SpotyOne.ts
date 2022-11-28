@@ -1,4 +1,4 @@
-import {InMemoryAlbumRespository} from "./../adapters/repositories/InMemoryAlbumRespository";
+import {InMemoryAlbumRespository} from "../adapters/repositories/InMemoryAlbumRespository";
 import {UuidGateway} from "./../adapters/gateways/UuidGateway";
 import {Album} from "../../Entities/Album";
 import {CreateAlbum} from "../../Usecases/album/CreateAlbum";

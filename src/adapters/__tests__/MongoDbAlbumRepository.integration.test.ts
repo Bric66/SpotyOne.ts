@@ -17,7 +17,7 @@ describe('Integration - MongoDbAlbumRepository', () => {
             if (err) {
                 throw err;
             }
-           // console.info("Connected to mongodb");
+            console.info("Connected to mongodb");
         });
 
         album = Album.create({

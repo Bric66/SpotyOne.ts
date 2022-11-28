@@ -1,6 +1,5 @@
 import { Album } from '../../../Entities/Album';
-import { UpdateAlbumInput } from '../../../Usecases/album/UpdateAlbum';
-import { AlbumRepository } from './../../../repositories/AlbumRepository';
+import { AlbumRepository } from '../../../repositories/AlbumRepository';
 
 
 export class InMemoryAlbumRespository implements AlbumRepository {

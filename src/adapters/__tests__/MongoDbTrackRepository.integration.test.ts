@@ -1,5 +1,3 @@
-
-
 import {v4} from "uuid";
 import mongoose from "mongoose";
 import {Track} from "../../core/Entities/Track";
@@ -10,6 +8,7 @@ import {TrackModel} from "../repositories/mongoDb/models/track";
 describe('Integration - MongoDbTrackRepository', () => {
 
     let track: Track;
+    let track2: Track;
     let result: Track
     const mongoDbTrackRepository = new MongoDbTrackRepository();
 
@@ -22,13 +21,25 @@ describe('Integration - MongoDbTrackRepository', () => {
             console.info("Connected to mongodb");
         });
 
-        track = Track.create({
+        track = new Track({
             userId: "1234",
-            trackTitle: "wmca",
+            trackTitle: "track1",
             artist: "village people",
             file: "hhtp://../track",
             duration: 3000,
             trackId: "5678",
+            created: new Date(1000),
+            updated: new Date()
+        });
+        track2 = new Track({
+            userId: "12346",
+            trackTitle: "track2",
+            artist: "village people",
+            file: "hhtp://../track",
+            duration: 30880,
+            trackId: "5678666",
+            created: new Date(10),
+            updated: new Date()
         });
     });
 
@@ -46,10 +57,9 @@ describe('Integration - MongoDbTrackRepository', () => {
     })
     it('should return true if track presentation exists', async () => {
         const test = await mongoDbTrackRepository.exist(
-            "wmca",
+            "track1",
             "village people",
         );
-
         await expect(test).toBeTruthy();
     })
 
@@ -62,18 +72,23 @@ describe('Integration - MongoDbTrackRepository', () => {
     })
 
     it("Should save a track", async () => {
-        await expect(result.props.trackTitle).toEqual("wmca");
+        await expect(result.props.trackTitle).toEqual("track1");
         await expect(result.props.trackId).toBeTruthy();
     });
 
     it("Should get track by userId", async () => {
         const result = await mongoDbTrackRepository.getByUserId(track.props.userId);
-        await expect(result).toEqual(track);
+        await expect(result.props.trackTitle).toEqual("track1");
     })
 
     it("Should throw if track not found by userId", async () => {
         const result = () => mongoDbTrackRepository.getByUserId("wrong id");
         await expect(async () => result()).rejects.toThrow();
+    })
+
+    it("Should get track by title", async () => {
+        const result = await mongoDbTrackRepository.getByTitle(track.props.trackTitle);
+        await expect(result.props.trackTitle).toEqual("track1");
     })
 
     it("Should update a track", async () => {
@@ -82,7 +97,6 @@ describe('Integration - MongoDbTrackRepository', () => {
             duration : 3000,
             artist: "gipsy king",
             file : "none",
-            updated : new Date(),
         })
         const result = await mongoDbTrackRepository.update(track)
         await expect(result.props.trackTitle).toEqual("jobi joba");
@@ -104,11 +118,6 @@ describe('Integration - MongoDbTrackRepository', () => {
         await expect(async () => result()).rejects.toThrow();
     })
 
-    it("Should get track by title", async () => {
-        const result = await mongoDbTrackRepository.getByTitle(track.props.trackTitle);
-        await expect(result).toEqual(track);
-    })
-
     it("Should throw if track not found by title", async () => {
         const result = () => mongoDbTrackRepository.getByTitle("wrong title");
         await expect(async () => result()).rejects.toThrow();
@@ -118,5 +127,16 @@ describe('Integration - MongoDbTrackRepository', () => {
         await mongoDbTrackRepository.create(track);
         const result = await mongoDbTrackRepository.getTracks();
         await expect(result).toHaveLength(2);
+    })
+
+    it("Should get all tracks by date", async () => {
+        await mongoDbTrackRepository.create(track);
+        await mongoDbTrackRepository.create(track2);
+        const result = await mongoDbTrackRepository.getTracksByDescendingDate();
+        expect(result[0]).toEqual({
+            title: "track2",
+            artist: "village people",
+            created: new Date(10)
+        });
     })
 })

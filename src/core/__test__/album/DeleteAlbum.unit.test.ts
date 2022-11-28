@@ -1,5 +1,5 @@
 import { DeleteAlbum } from './../../Usecases/album/DeleteAlbum';
-import { InMemoryAlbumRespository } from './../adapters/repositories/InMemoryAlbumRespository';
+import { InMemoryAlbumRespository } from '../adapters/repositories/InMemoryAlbumRespository';
 import { Album } from "../../Entities/Album"
 
 const db = new Map<string, Album>()

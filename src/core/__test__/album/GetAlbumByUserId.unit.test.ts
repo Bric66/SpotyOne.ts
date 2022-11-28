@@ -1,5 +1,5 @@
 
-import { InMemoryAlbumRespository } from './../adapters/repositories/InMemoryAlbumRespository';
+import { InMemoryAlbumRespository } from '../adapters/repositories/InMemoryAlbumRespository';
 import { Album } from "../../Entities/Album"
 import { GetAlbumByUserId } from '../../Usecases/album/GetAlbumByUserId';
 

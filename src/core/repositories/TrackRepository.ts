@@ -1,3 +1,4 @@
+
 import {Track} from "../Entities/Track";
 import {TrackUpdatedInput} from "../Usecases/track/UpdateTrack";
 
@@ -15,6 +16,8 @@ export interface TrackRepository {
     getById(trackId: string): Promise<Track>;
 
     getByTitle(title: string): Promise<Track>;
+
+    getTracksByDescendingDate(): Promise<Object[]>
 
     exist(trakcTitle: string, artist: string): Promise<Boolean> 
 

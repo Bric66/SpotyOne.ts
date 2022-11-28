@@ -8,6 +8,7 @@ import {GetTrackByTitle} from "../../core/Usecases/track/GetTrackByTitle";
 import {UpdateTrack} from "../../core/Usecases/track/UpdateTrack";
 import {DeleteTrack} from "../../core/Usecases/track/DeleteTrack";
 import {GetTracks} from "../../core/Usecases/track/GetTracks";
+import { GetTracksByDescendingDate } from "../../core/Usecases/track/GetTracksByDescendingDate";
 
 const trackRouter = express.Router()
 
@@ -20,6 +21,7 @@ const getTrackByTitle = new GetTrackByTitle(mongoDbTrackRepository)
 const getTracks = new GetTracks(mongoDbTrackRepository)
 const updateTrack = new UpdateTrack(mongoDbTrackRepository)
 const deleteTrack = new DeleteTrack(mongoDbTrackRepository)
+const getTracksByDescendingDate = new GetTracksByDescendingDate(mongoDbTrackRepository)
 
 trackRouter.post("/create", async (req: AuthentifiedRequest, res) => {
     const body = {
@@ -40,8 +42,13 @@ trackRouter.get("/title/:title", async (req: AuthentifiedRequest, res) => {
 });
 
 trackRouter.get("/all", async (req: AuthentifiedRequest, res) => {
-    const album = await getTracks.execute();
-    return res.status(200).send(album);
+    const albums = await getTracks.execute();
+    return res.status(200).send(albums);
+});
+
+trackRouter.get("/date", async (req: AuthentifiedRequest, res) => {
+    const albums = await getTracksByDescendingDate.execute();
+    return res.status(200).send(albums);
 });
 
 trackRouter.patch("/", async (req: AuthentifiedRequest, res) => {
