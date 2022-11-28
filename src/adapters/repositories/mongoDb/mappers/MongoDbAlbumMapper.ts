@@ -1,5 +1,3 @@
-import { userModel } from "./../models/user";
-import { User } from "./../../../../core/Entities/User";
 import {Album} from "../../../../core/Entities/Album";
 import {albumModel} from "../models/album";
 

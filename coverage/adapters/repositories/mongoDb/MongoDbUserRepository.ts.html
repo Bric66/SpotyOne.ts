@@ -25,11 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-<<<<<<< HEAD
                 <span class='fraction'>21/21</span>
-=======
-                <span class='fraction'>22/22</span>
->>>>>>> dev
             </div>
         
             
@@ -50,11 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-<<<<<<< HEAD
                 <span class='fraction'>21/21</span>
-=======
-                <span class='fraction'>22/22</span>
->>>>>>> dev
             </div>
         
             
@@ -122,7 +114,6 @@
 <a name='L49'></a><a href='#L49'>49</a>
 <a name='L50'></a><a href='#L50'>50</a>
 <a name='L51'></a><a href='#L51'>51</a>
-<<<<<<< HEAD
 <a name='L52'></a><a href='#L52'>52</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -130,21 +121,6 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-=======
-<a name='L52'></a><a href='#L52'>52</a>
-<a name='L53'></a><a href='#L53'>53</a>
-<a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
->>>>>>> dev
 <span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-yes">16x</span>
@@ -182,17 +158,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<<<<<<< HEAD
-=======
-<span class="cline-any cline-yes">2x</span>
->>>>>>> dev
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<<<<<<< HEAD
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { MongoDbUserMapper } from "./mappers/MongoDbUserMapper";
 import { UserRepository } from "../../../core/repositories/UserRepository";
@@ -246,74 +217,13 @@ export class MongoDbUserRepository implements UserRepository {
   }
 }
 &nbsp;</pre></td></tr></table></pre>
-=======
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {UserRepository} from "../../../core/repositories/UserRepository";
-import {User} from "../../../core/Entities/User";
-import {UserModel} from "./models/user";
-import {MongoDbUserMapper} from "./mappers/MongoDbUserMapper";
-&nbsp;
-const mongoDbUserMapper = new MongoDbUserMapper();
-&nbsp;
-export class MongoDbUserRepository implements UserRepository {
-&nbsp;
-    async create(user: User): Promise&lt;User&gt; {
-        const toUserModel = mongoDbUserMapper.toUserModel(user)
-        const userModel = new UserModel(toUserModel);
-        await userModel.save();
-        return user;
-    }
-&nbsp;
-    async getByEmail(email: string): Promise&lt;User&gt; {
-        const user = await UserModel.findOne({email: email});
-        if (!user) {
-            return null
-        }
-        return mongoDbUserMapper.toUser(user);
-    };
-&nbsp;
-    async getById(id: string): Promise&lt;User&gt; {
-        const user = await UserModel.findOne({id: id});
-        if (!user) {
-            throw new Error("user not found");
-        }
-        return mongoDbUserMapper.toUser(user);
-    };
-&nbsp;
-    async update(input: User): Promise&lt;User&gt; {
-        const toUserModel = mongoDbUserMapper.toUserModel(input)
-        await UserModel.findOneAndUpdate(
-            {id: toUserModel.id},
-            {
-                $set: {
-                    userName: toUserModel.userName,
-                    email: toUserModel.email,
-                    password: toUserModel.password,
-                    updated: toUserModel.updated,
-                }
-            },
-            {new: true}
-        )
-        console.log('User updated successfully');
-        return input;
-    };
-&nbsp;
-    async delete(userId: string): Promise&lt;void&gt; {
-        await UserModel.deleteOne({id: userId})
-        return;
-    };
-}</pre></td></tr></table></pre>
->>>>>>> dev
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-<<<<<<< HEAD
-                at 2022-11-28T11:02:51.331Z
-=======
-                at 2022-11-28T11:02:30.019Z
->>>>>>> dev
+                at 2022-11-28T11:41:34.605Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
