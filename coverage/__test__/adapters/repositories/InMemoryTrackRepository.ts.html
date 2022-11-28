@@ -39,7 +39,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">23.07% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/13</span>
+                <span class='fraction'>4/16</span>
             </div>
         
             
@@ -119,15 +119,28 @@
 <a name='L54'></a><a href='#L54'>54</a>
 <a name='L55'></a><a href='#L55'>55</a>
 <a name='L56'></a><a href='#L56'>56</a>
-<a name='L57'></a><a href='#L57'>57</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L57'></a><a href='#L57'>57</a>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a>
+<a name='L72'></a><a href='#L72'>72</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -166,27 +179,16 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {Track} from '../../../Entities/Track';
-import {TrackUpdatedInput} from '../../../Usecases/track/UpdateTrack';
-import {TrackRepository} from './../../../repositories/TrackRepository';
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Track } from "../../../Entities/Track";
+import { TrackRepository } from "./../../../repositories/TrackRepository";
 &nbsp;
 export class InMemoryTrackRepository implements TrackRepository {
-    constructor(private readonly db: Map&lt;string, Track&gt;) {
-    }
+  constructor(private readonly db: Map&lt;string, Track&gt;) {}
 &nbsp;
-    async <span class="fstat-no" title="function not covered" >create(</span>input: Track): Promise&lt;Track&gt; {
-<span class="cstat-no" title="statement not covered" >        this.db.set(input.props.trackId, input)</span>
-<span class="cstat-no" title="statement not covered" >        return input</span>
-    }
+  async <span class="fstat-no" title="function not covered" >create(</span>input: Track): Promise&lt;Track&gt; {
+<span class="cstat-no" title="statement not covered" >    this.db.set(input.props.trackId, input);</span>
+<span class="cstat-no" title="statement not covered" >    return input;</span>
+  }
 &nbsp;
     async getByUserId(userId: string): Promise&lt;Track&gt; {
         const values = Array.from(this.db.values());
@@ -194,24 +196,27 @@ export class InMemoryTrackRepository implements TrackRepository {
         return track
     }
 &nbsp;
-<span class="fstat-no" title="function not covered" >    update(</span>input: Track): Promise&lt;Track&gt; {
-<span class="cstat-no" title="statement not covered" >        throw new Error('Method not implemented.');</span>
-    }
+<span class="fstat-no" title="function not covered" >  update(</span>input: Track): Promise&lt;Track&gt; {
+<span class="cstat-no" title="statement not covered" >    throw new Error("Method not implemented.");</span>
+  }
 &nbsp;
-<span class="fstat-no" title="function not covered" >    delete(</span>trackId: string): Promise&lt;void&gt; {
-<span class="cstat-no" title="statement not covered" >        this.db.delete(trackId)</span>
-<span class="cstat-no" title="statement not covered" >        return</span>
-    }
+<span class="fstat-no" title="function not covered" >  delete(</span>trackId: string): Promise&lt;void&gt; {
+<span class="cstat-no" title="statement not covered" >    this.db.delete(trackId);</span>
+<span class="cstat-no" title="statement not covered" >    return;</span>
+  }
 &nbsp;
-    async <span class="fstat-no" title="function not covered" >getTracks(</span>): Promise&lt;string[]&gt; {
-        const tracks = <span class="cstat-no" title="statement not covered" >Array.from(this.db.values());</span>
-        const result = <span class="cstat-no" title="statement not covered" >tracks.map(<span class="fstat-no" title="function not covered" >(t</span>rack) =&gt; <span class="cstat-no" title="statement not covered" >`title: ${track.props.trackTitle}, artist: ${track.props.artist}`)</span>;</span>
-<span class="cstat-no" title="statement not covered" >        return result</span>
-    }
+  async <span class="fstat-no" title="function not covered" >getTracks(</span>): Promise&lt;string[]&gt; {
+    const tracks = <span class="cstat-no" title="statement not covered" >Array.from(this.db.values());</span>
+    const result = <span class="cstat-no" title="statement not covered" >tracks.map(</span>
+<span class="fstat-no" title="function not covered" >      (t</span>rack) =&gt;
+<span class="cstat-no" title="statement not covered" >        `title: ${track.props.trackTitle}, artist: ${track.props.artist}`</span>
+    );
+<span class="cstat-no" title="statement not covered" >    return result;</span>
+  }
 &nbsp;
-<span class="fstat-no" title="function not covered" >    getById(</span>trackId: string): Promise&lt;Track&gt; {
-<span class="cstat-no" title="statement not covered" >        throw new Error('Method not implemented.');</span>
-    }
+<span class="fstat-no" title="function not covered" >  getById(</span>trackId: string): Promise&lt;Track&gt; {
+<span class="cstat-no" title="statement not covered" >    throw new Error("Method not implemented.");</span>
+  }
 &nbsp;
     async <span class="fstat-no" title="function not covered" >getByTitle(</span>trackTitle: string): Promise&lt;Track&gt; {
         const values = <span class="cstat-no" title="statement not covered" >Array.from(this.db.values());</span>
@@ -221,17 +226,33 @@ export class InMemoryTrackRepository implements TrackRepository {
         }
 <span class="cstat-no" title="statement not covered" >        return track</span>
     }
+<span class="cstat-no" title="statement not covered" >    return track;</span>
+  }
 &nbsp;
-    async <span class="fstat-no" title="function not covered" >exist(</span>trackTitle: string, artist: string): Promise&lt;Boolean&gt; {
-        const values = <span class="cstat-no" title="statement not covered" >Array.from(this.db.values());</span>
-        const isTrackExist = <span class="cstat-no" title="statement not covered" >values.find(<span class="fstat-no" title="function not covered" >elm </span>=&gt; <span class="cstat-no" title="statement not covered" >elm.props.trackTitle === trackTitle &amp;&amp; elm.props.artist === artist)</span></span>
-<span class="cstat-no" title="statement not covered" >        <span class="missing-if-branch" title="if path not taken" >I</span>if (isTrackExist) {</span>
-<span class="cstat-no" title="statement not covered" >            return true</span>
-        }
-<span class="cstat-no" title="statement not covered" >        return false</span>
+  async <span class="fstat-no" title="function not covered" >exist(</span>trackTitle: string, artist: string): Promise&lt;Boolean&gt; {
+    const values = <span class="cstat-no" title="statement not covered" >Array.from(this.db.values());</span>
+    const isTrackExist = <span class="cstat-no" title="statement not covered" >values.find(</span>
+<span class="fstat-no" title="function not covered" >      (e</span>lm) =&gt;
+<span class="cstat-no" title="statement not covered" >        elm.props.trackTitle === trackTitle &amp;&amp; elm.props.artist === artist</span>
+    );
+<span class="cstat-no" title="statement not covered" >    <span class="missing-if-branch" title="if path not taken" >I</span>if (isTrackExist) {</span>
+<span class="cstat-no" title="statement not covered" >      return true;</span>
     }
+<span class="cstat-no" title="statement not covered" >    return false;</span>
+  }
 &nbsp;
-}</pre></td></tr></table></pre>
+  async getTracksByDescendingDate(): Promise&lt;Object[]&gt; {
+    const tracks = Array.from(this.db.values());
+    tracks.sort((a, b) =&gt; +a.props.created - +b.props.created);
+    const result = tracks.map((track) =&gt; ({
+      title: track.props.trackTitle,
+      artist: track.props.artist,
+      created: track.props.created,
+    }));
+    return result;
+  }
+}
+&nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->

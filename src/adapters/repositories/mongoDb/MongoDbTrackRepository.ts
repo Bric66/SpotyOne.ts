@@ -7,6 +7,7 @@ const mongoDbTrackMapper = new MongoDbTrackMapper()
 
 export class MongoDbTrackRepository implements TrackRepository {
 
+
     async create(track: Track): Promise<Track> {
         const toTrackModel = mongoDbTrackMapper.toTrackModel(track)
         const trackModel = new TrackModel(toTrackModel);
@@ -32,6 +33,17 @@ export class MongoDbTrackRepository implements TrackRepository {
             userId,
         }));
         return result;
+    }
+
+    async getTracksByDescendingDate(): Promise<Object[]> {
+        const tracks = await TrackModel.find();
+        tracks.sort((a, b) => +a.created - +b.created);
+        return tracks.map((track) => ({
+        title: track.trackTitle,
+        artist: track.artist,
+        created: new Date(track.created),
+    }));
+    
     }
 
     update(input: Track): Promise<Track> {

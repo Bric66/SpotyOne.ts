@@ -5,7 +5,7 @@ export type TrackProperties = {
     duration: number;
     file: string;
     created: Date;
-    updated: Date;
+    updated?: Date;
     userId: string;
 }
 
@@ -46,6 +46,11 @@ export class Track {
         this.props.artist   = props.artist;
         this.props.duration = props.duration;
         this.props.file = props.file;
+<<<<<<< HEAD
+        this.props.updated = new Date()
+        
+=======
         this.props.updated = new Date();
+>>>>>>> dev
     }
 }
