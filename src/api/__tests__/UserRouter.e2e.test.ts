@@ -36,7 +36,7 @@ describe("E2E - User Router", () => {
       email: "jojolapin@gmail.com",
       password: bcryptGateway.encrypt("1234"),
       id: "12345",
-      libraryId: "9999",
+      libraryId: "9999"
     });
   });
 
@@ -56,6 +56,7 @@ describe("E2E - User Router", () => {
         userName: "jojolapin",
         email: "jojolapin@gmail.com",
         password: "1234",
+        libraryTitle: "my title",
       })
 
       .expect((response) => {

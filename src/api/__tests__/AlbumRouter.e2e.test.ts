@@ -71,9 +71,9 @@ describe("E2E - Album router", () => {
     await mongoose.connection.close();
   });
 
-  it("should post /album/create", async () => {
+  it("should post /album", async () => {
     await supertest(app)
-      .post("/album/create")
+      .post("/album/")
       .set("access_key", accessKey)
       .send({
         albumTitle: "newwwww",
@@ -106,7 +106,7 @@ describe("E2E - Album router", () => {
   it("should get /album/:id ", async () => {
     const result = await albumRepository.create(album);
     await supertest(app)
-      .get(`/album/id/${result.props.albumId}`)
+      .get(`/album/${result.props.albumId}`)
       .set("access_key", accessKey)
       .expect((response) => {
         const responseBody = response.body;
@@ -120,7 +120,7 @@ describe("E2E - Album router", () => {
     const result = await albumRepository.create(album);
 
     await supertest(app)
-      .get(`/album/userId/${result.props.userId}`)
+      .get(`/album/${result.props.userId}/mine`)
       .set("access_key", accessKey)
       .expect((response) => {
         const responseBody = response.body;
@@ -133,7 +133,7 @@ describe("E2E - Album router", () => {
   it("should get /albums", async () => {
     await albumRepository.create(album);
     await supertest(app)
-      .get(`/album/all`)
+      .get(`/album/`)
       .set("access_key", accessKey)
       .expect((response) => {
         const responseBody = response.body;
@@ -142,17 +142,6 @@ describe("E2E - Album router", () => {
       .expect(200);
   });
 
-  it("should get /album/:title", async () => {
-    const result = await albumRepository.create(album);
-    await supertest(app)
-      .get(`/album/title/${result.props.albumTitle}`)
-      .set("access_key", accessKey)
-      .expect((response) => {
-        const responseBody = response.body;
-        expect(responseBody.albumTitle).toEqual("Album Title");
-      })
-      .expect(200);
-  });
 
   it("should patch /album", async () => {
     await albumRepository.create(album);

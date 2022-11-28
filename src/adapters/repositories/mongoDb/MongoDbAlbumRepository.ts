@@ -5,9 +5,8 @@ import { AlbumModel } from "./models/album";
 export class MongoDbAlbumRepository implements AlbumRepository {
   async create(album: Album): Promise<Album> {
     const albumModel = new AlbumModel(album.props);
-    await albumModel
-      .save()
-      .then(() => console.log("Album created successfully"));
+    await albumModel.save();
+
     return album;
   }
 
@@ -25,7 +24,7 @@ export class MongoDbAlbumRepository implements AlbumRepository {
       },
       { new: true }
     );
-    console.log("Album updated successfully");
+
     return Promise.resolve(input);
   }
 
@@ -108,9 +107,7 @@ export class MongoDbAlbumRepository implements AlbumRepository {
   }
 
   async deleteAlbum(albumId: string): Promise<void> {
-    await AlbumModel.deleteOne({ id: albumId }).then(() =>
-      console.log("Album deleted successfully")
-    );
+    await AlbumModel.deleteOne({ id: albumId });
     return;
   }
 }

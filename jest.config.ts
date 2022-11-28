@@ -5,5 +5,7 @@ const config: Config.InitialOptions = {
   transform: {
     "^.+\\.(ts|tsx)$": "ts-jest",
   },
+  "collectCoverage": true,
+    "coverageReporters": ["json", "html"]
 };
 export default config;
