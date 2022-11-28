@@ -17,7 +17,7 @@ describe('Integration - MongoDbAlbumRepository', () => {
             if (err) {
                 throw err;
             }
-            console.info("Connected to mongodb");
+           // console.info("Connected to mongodb");
         });
 
         album = Album.create({
@@ -83,7 +83,6 @@ describe('Integration - MongoDbAlbumRepository', () => {
             "Album Title",
             "Artist",
         );
-        console.log();
         await expect(test).toBeTruthy();
     })
 
@@ -117,7 +116,7 @@ describe('Integration - MongoDbAlbumRepository', () => {
 
     it("Should get album by id", async () => {
         const result = await mongoDbAlbumRepository.getAlbumById(album.props.albumId);
-        await expect(result).toEqual(album);
+        await expect(result.props.albumTitle).toEqual(album.props.albumTitle);
     })
 
     it("Should throw if album not found by id", async () => {
@@ -127,7 +126,7 @@ describe('Integration - MongoDbAlbumRepository', () => {
 
     it("Should get album by userId", async () => {
         const result = await mongoDbAlbumRepository.getAlbumByUserId(album.props.userId);
-        await expect(result).toEqual(album);
+        await expect(result.props.albumTitle).toEqual(album.props.albumTitle);
     })
 
     it("Should throw if album not found by userId", async () => {
@@ -137,7 +136,7 @@ describe('Integration - MongoDbAlbumRepository', () => {
 
     it("Should get album by title", async () => {
         const result = await mongoDbAlbumRepository.getAlbumByTitle(album.props.albumTitle);
-        await expect(result).toEqual(album);
+        await expect(result.props.albumTitle).toEqual(album.props.albumTitle);
     })
 
     it("Should throw if album not found by title", async () => {
@@ -148,7 +147,6 @@ describe('Integration - MongoDbAlbumRepository', () => {
     it("Should get all albums", async () => {
         await mongoDbAlbumRepository.create(album2);
         const result = await mongoDbAlbumRepository.getAlbums();
-        console.log(result);
         await expect(result).toHaveLength(2);
     })
 
