@@ -10,8 +10,8 @@ export class MongoDbAlbumMapper {
             albumTitle : userModel.albumTitle,
             file : userModel.file,
             tracks: userModel.tracks,
-            created : userModel.created,
-            updated : userModel.updated
+            created : new Date(userModel.created),
+            updated : new Date(userModel.updated)
         });
     }
     toAlbumModel(album: Album): albumModel {
@@ -22,8 +22,8 @@ export class MongoDbAlbumMapper {
             albumTitle : album.props.albumTitle,
             file : album.props.file,
             tracks : album.props.tracks,
-            created : album.props.created,
-            updated : album.props.updated,
+            created : +album.props.created,
+            updated : +album.props.updated,
         };
     }
 }

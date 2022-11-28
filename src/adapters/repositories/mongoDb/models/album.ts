@@ -8,8 +8,8 @@ export type albumModel = {
     file: string,
     tracks: Array<TrackProperties>,
     userId: string,
-    created: Date,
-    updated?: Date,
+    created: number,
+    updated?: number,
 }
 
 const albumSchema = new Schema({

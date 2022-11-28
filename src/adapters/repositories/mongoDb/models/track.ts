@@ -6,8 +6,8 @@ export type trackModel = {
     artist: string;
     duration: number;
     file: string;
-    created: Date;
-    updated?: Date;
+    created: number;
+    updated?: number;
     userId: string;
 }
 
