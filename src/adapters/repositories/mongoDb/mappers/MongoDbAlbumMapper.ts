@@ -1,29 +1,52 @@
 import {Album} from "../../../../core/Entities/Album";
 import {albumModel} from "../models/album";
+import {Mapper} from "../../../../core/models/Mapper";
 
-export class MongoDbAlbumMapper {
-    toAlbum(userModel: albumModel): Album {
-        return new Album({
-            albumId : userModel.albumId,
-            userId : userModel.userId,
-            artist: userModel.artist,
-            albumTitle : userModel.albumTitle,
-            file : userModel.file,
-            tracks: userModel.tracks,
-            created : new Date(userModel.created),
-            updated : new Date(userModel.updated)
-        });
-    }
-    toAlbumModel(album: Album): albumModel {
+export class MongoDbAlbumMapper implements Mapper<albumModel, Album> {
+
+    fromDomain(data: Album): albumModel {
+        const {
+            albumId,
+            albumTitle,
+            created,
+            tracks,
+            userId,
+            artist,
+            updated,
+            file
+        } = data.props;
         return {
-            albumId : album.props.albumId,
-            userId : album.props.userId,
-            artist : album.props.artist,
-            albumTitle : album.props.albumTitle,
-            file : album.props.file,
-            tracks : album.props.tracks,
-            created : +album.props.created,
-            updated : +album.props.updated,
+            albumId,
+            userId,
+            artist,
+            albumTitle,
+            file,
+            tracks,
+            created: +created,
+            updated: +updated,
         };
+    }
+
+    toDomain(raw: albumModel): Album {
+        const {
+            albumId,
+            albumTitle,
+            created,
+            tracks,
+            userId,
+            artist,
+            updated,
+            file
+        } = raw;
+        return new Album({
+            albumId,
+            userId,
+            artist,
+            albumTitle,
+            file,
+            tracks,
+            created: new Date(created),
+            updated: new Date(updated)
+        });
     }
 }

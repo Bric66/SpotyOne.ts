@@ -1,28 +1,49 @@
 import {userModel} from "./../models/user";
 import {User} from "./../../../../core/Entities/User";
+import {Mapper} from "../../../../core/models/Mapper";
 
-export class MongoDbUserMapper {
-    toUser(userModel: userModel): User {
-        return new User({
-            id: userModel.id,
-            created: new Date(userModel.created),
-            email: userModel.email,
-            password: userModel.password,
-            libraryId: userModel.libraryId,
-            updated: new Date(userModel.updated),
-            userName: userModel.userName,
-        });
+export class MongoDbUserMapper implements Mapper<userModel, User> {
+
+    fromDomain(data: User): userModel {
+        const {
+            id,
+            created,
+            email,
+            libraryId,
+            password,
+            updated,
+            userName
+        } = data.props;
+        let u: userModel = {
+            id,
+            created: +created,
+            email,
+            libraryId,
+            password,
+            updated: +updated,
+            userName
+        }
+        return u
     }
 
-    toUserModel(user: User): userModel {
-        return {
-            id: user.props.id,
-            created: +user.props.created,
-            email: user.props.email,
-            libraryId: user.props.libraryId,
-            password: user.props.password,
-            updated: +user.props.updated,
-            userName: user.props.userName,
-        };
+    toDomain(raw: userModel): User {
+        const {
+            id,
+            created,
+            email,
+            libraryId,
+            password,
+            updated,
+            userName
+        } = raw;
+        return new User({
+            id,
+            created: new Date(created),
+            email,
+            password,
+            libraryId,
+            updated: new Date(updated),
+            userName
+        });
     }
 }

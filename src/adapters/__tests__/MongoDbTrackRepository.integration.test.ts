@@ -16,12 +16,7 @@ describe('Integration - MongoDbTrackRepository', () => {
             }
             console.info("Connected to mongodb");
         });
-<<<<<<< HEAD
-
         track = new Track({
-=======
-        track = Track.create({
->>>>>>> dev
             userId: "1234",
             trackTitle: "track1",
             artist: "village people",
@@ -72,29 +67,16 @@ describe('Integration - MongoDbTrackRepository', () => {
     });
     it("Should get track by userId", async () => {
         const result = await mongoDbTrackRepository.getByUserId(track.props.userId);
-<<<<<<< HEAD
         await expect(result.props.trackTitle).toEqual("track1");
-=======
-        await expect(result.props.trackTitle).toEqual("wmca");
->>>>>>> dev
     })
     it("Should throw if track not found by userId", async () => {
         const result = () => mongoDbTrackRepository.getByUserId("wrong id");
         await expect(async () => result()).rejects.toThrow();
     })
-<<<<<<< HEAD
-
     it("Should get track by title", async () => {
         const result = await mongoDbTrackRepository.getByTitle(track.props.trackTitle);
         await expect(result.props.trackTitle).toEqual("track1");
     })
-
-=======
-    it("Should get track by title", async () => {
-        const result = await mongoDbTrackRepository.getByTitle(track.props.trackTitle);
-        await expect(result.props.trackTitle).toEqual("wmca");
-    })
->>>>>>> dev
     it("Should update a track", async () => {
         track.update({
             trackTitle : "jobi joba",
@@ -118,10 +100,6 @@ describe('Integration - MongoDbTrackRepository', () => {
         const result = () => mongoDbTrackRepository.getById("wrong id");
         await expect(async () => result()).rejects.toThrow();
     })
-<<<<<<< HEAD
-
-=======
->>>>>>> dev
     it("Should throw if track not found by title", async () => {
         const result = () => mongoDbTrackRepository.getByTitle("wrong title");
         await expect(async () => result()).rejects.toThrow();
@@ -131,8 +109,6 @@ describe('Integration - MongoDbTrackRepository', () => {
         const result = await mongoDbTrackRepository.getTracks();
         await expect(result).toHaveLength(2);
     })
-<<<<<<< HEAD
-
     it("Should get all tracks by date", async () => {
         await mongoDbTrackRepository.create(track);
         await mongoDbTrackRepository.create(track2);
@@ -144,6 +120,3 @@ describe('Integration - MongoDbTrackRepository', () => {
         });
     })
 })
-=======
-})
->>>>>>> dev
