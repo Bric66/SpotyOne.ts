@@ -8,14 +8,14 @@ const mongoDbAlbumMapper = new MongoDbAlbumMapper();
 export class MongoDbAlbumRepository implements AlbumRepository {
 
     async create(album: Album): Promise<Album> {
-        const toAlbumModel = mongoDbAlbumMapper.toAlbumModel(album)
+        const toAlbumModel = mongoDbAlbumMapper.fromDomain(album)
         const albumModel = new AlbumModel(toAlbumModel);
         await albumModel.save()
         return album;
     }
 
     updateAlbum(input: Album): Promise<Album> {
-        const toAlbumModel = mongoDbAlbumMapper.toAlbumModel(input)
+        const toAlbumModel = mongoDbAlbumMapper.fromDomain(input)
         AlbumModel.findOneAndUpdate(
             {id: toAlbumModel.userId},
             {
@@ -57,7 +57,7 @@ export class MongoDbAlbumRepository implements AlbumRepository {
         if (!album) {
             throw new Error("Album not found");
         }
-        return mongoDbAlbumMapper.toAlbum(album);
+        return mongoDbAlbumMapper.toDomain(album);
     }
 
     async getAlbumByUserId(userId: string): Promise<Album> {
@@ -65,7 +65,7 @@ export class MongoDbAlbumRepository implements AlbumRepository {
         if (!album) {
             throw new Error("Album not found");
         }
-        return mongoDbAlbumMapper.toAlbum(album);
+        return mongoDbAlbumMapper.toDomain(album);
     }
 
     async getAlbumByTitle(albumTitle: string): Promise<Album> {
@@ -73,7 +73,7 @@ export class MongoDbAlbumRepository implements AlbumRepository {
         if (!album) {
             throw new Error("Album not found");
         }
-        return mongoDbAlbumMapper.toAlbum(album);
+        return mongoDbAlbumMapper.toDomain(album);
     }
 
 

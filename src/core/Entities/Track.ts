@@ -43,14 +43,9 @@ export class Track {
         file: string;
     }) {
         this.props.trackTitle = props.trackTitle;
-        this.props.artist   = props.artist;
+        this.props.artist = props.artist;
         this.props.duration = props.duration;
         this.props.file = props.file;
-<<<<<<< HEAD
-        this.props.updated = new Date()
-        
-=======
         this.props.updated = new Date();
->>>>>>> dev
     }
 }

@@ -5,7 +5,7 @@ import { UserModel } from "./models/user";
 const mongoDbUserMapper = new MongoDbUserMapper();
 export class MongoDbUserRepository implements UserRepository {
   async create(user: User): Promise<User> {
-    const toUserModel = mongoDbUserMapper.toUserModel(user)
+    const toUserModel = mongoDbUserMapper.fromDomain(user)
     const userModel = new UserModel(toUserModel);
     await userModel.save()
     return user;
@@ -16,7 +16,7 @@ export class MongoDbUserRepository implements UserRepository {
     if (!user) {
       return null;
     }
-    return mongoDbUserMapper.toUser(user);
+    return mongoDbUserMapper.toDomain(user);
   }
 
   async getById(id: string): Promise<User> {
@@ -24,11 +24,11 @@ export class MongoDbUserRepository implements UserRepository {
     if (!user) {
       throw new Error("user not found");
     }
-    return mongoDbUserMapper.toUser(user);
+    return mongoDbUserMapper.toDomain(user);
   }
 
   async update(input: User): Promise<User> {
-    const toUserModel = mongoDbUserMapper.toUserModel(input)
+    const toUserModel = mongoDbUserMapper.fromDomain(input)
     await UserModel.findOneAndUpdate(
       { id: toUserModel.id },
       {

@@ -181,7 +181,8 @@ describe('Integration - MongoDbAlbumRepository', () => {
     })
 
     it("Should get all albums by date", async () => {
-        await mongoDbAlbumRepository.create(album2);
+        jest.setTimeout(1000);
+        //await mongoDbAlbumRepository.create(album2);
         await mongoDbAlbumRepository.create(album3);
         const result = await mongoDbAlbumRepository.getAlbumsByDate();
         expect(result[0]).toEqual({
