@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import {Track} from "../../core/Entities/Track";
 import {MongoDbTrackRepository} from "../repositories/mongoDb/MongoDbTrackRepository";
 import {TrackModel} from "../repositories/mongoDb/models/track";
+import {TrackErrors} from "../../core/errors/TrackErrors";
 describe('Integration - MongoDbTrackRepository', () => {
     let track: Track;
     let track2: Track;
@@ -71,7 +72,7 @@ describe('Integration - MongoDbTrackRepository', () => {
     })
     it("Should throw if track not found by userId", async () => {
         const result = () => mongoDbTrackRepository.getByUserId("wrong id");
-        await expect(async () => result()).rejects.toThrow();
+        await expect(async () => result()).rejects.toThrow(TrackErrors.TrackNotFound);
     })
     it("Should get track by title", async () => {
         const result = await mongoDbTrackRepository.getByTitle(track.props.trackTitle);
@@ -98,11 +99,11 @@ describe('Integration - MongoDbTrackRepository', () => {
     })
     it("Should throw if album not found by id", async () => {
         const result = () => mongoDbTrackRepository.getById("wrong id");
-        await expect(async () => result()).rejects.toThrow();
+        await expect(async () => result()).rejects.toThrow(TrackErrors.TrackNotFound);
     })
     it("Should throw if track not found by title", async () => {
         const result = () => mongoDbTrackRepository.getByTitle("wrong title");
-        await expect(async () => result()).rejects.toThrow();
+        await expect(async () => result()).rejects.toThrow(TrackErrors.TrackNotFound);
     })
     it("Should get all tracks", async () => {
         await mongoDbTrackRepository.create(track);

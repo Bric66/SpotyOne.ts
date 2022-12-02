@@ -4,6 +4,7 @@ import { User } from "../../Entities/User";
 import { BcryptGateway } from "../adapters/gateways/BcryptGateway";
 import { CreateUser } from "../../Usecases/user/CreateUser";
 import { UuidGateway } from "../adapters/gateways/UuidGateway";
+import {UserErrors} from "../../errors/UserErrors";
 const dbConnectUser = new Map<string, User>();
 
 describe("When I call ConnectUser ====>", () => {
@@ -40,12 +41,12 @@ describe("When I call ConnectUser ====>", () => {
   });
 
   it("should throw if email not found ====>", async () => {
-    const result = () =>
+    const result = ()=>
       connectUser.execute({
         email: "mimi@gmail.com",
         password: "1234",
       });
-    await expect(() => result()).rejects.toThrow();
+    await expect(()=>result()).rejects.toThrow(UserErrors.UserNotFound);
   });
 
   it("should throw if password doesnt match ====>", async () => {

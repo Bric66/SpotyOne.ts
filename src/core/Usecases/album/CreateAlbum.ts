@@ -2,6 +2,7 @@ import { IdGateway } from "./../../gateways/IdGateway";
 import { AlbumRepository } from "./../../repositories/AlbumRepository";
 import { Album, TrackProperties } from "../../Entities/Album";
 import { UseCase } from "../Usecase";
+import {AlbumErrors} from "../../errors/AlbumErrors";
 
 export type AlbumInput = {
   albumId: string;
@@ -30,7 +31,7 @@ export class CreateAlbum implements UseCase<CreateAlbumPropertiesInput, Promise<
       input.artist
     );
     if (isAlreadyCreated) {
-      throw new Error("Album already exists");
+      throw new AlbumErrors.AlbumAlreadyExists;
     }
     const albumId = this.idGateway.generate();
     const album = Album.create({

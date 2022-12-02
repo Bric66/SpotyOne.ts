@@ -3,6 +3,7 @@ import { v4 } from "uuid";
 import mongoose from "mongoose";
 import { MongoDbLibraryRepository } from "./../repositories/mongoDb/MongoDbLibraryRepository";
 import { Library } from "./../../core/Entities/Library";
+import {LibraryErrors} from "../../core/errors/LibraryErrors";
 
 describe("Integration - MongoDbLibratryRepository", () => {
   let library: Library;
@@ -46,12 +47,12 @@ describe("Integration - MongoDbLibratryRepository", () => {
     expect(result.props.libraryId).toEqual("9999");
   });
 
-  it("shoul throw if userId does not exist", async () => {
+  it("should throw if userId does not exist", async () => {
     const result = () => mongonDbLibraryRepository.getByUserId("false ID");
-    await expect(() => result()).rejects.toThrow();
+    await expect(() => result()).rejects.toThrow(LibraryErrors.LibraryNotFound);
   })
   
-  it("should update a librrary", async () => {
+  it("should update a library", async () => {
     library.update({
       title: "new library title",
     });

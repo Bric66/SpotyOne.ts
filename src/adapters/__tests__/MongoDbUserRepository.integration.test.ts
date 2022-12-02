@@ -3,6 +3,7 @@ import { UserModel } from "./../repositories/mongoDb/models/user";
 import { User } from "./../../core/Entities/User";
 import { MongoDbUserRepository } from "./../repositories/mongoDb/MongoDbUserRepository";
 import mongoose from "mongoose";
+import {UserErrors} from "../../core/errors/UserErrors";
 
 describe("Integration - MongoDbUserRepository", () => {
   let mongoDbUserRepository: MongoDbUserRepository;
@@ -59,13 +60,13 @@ describe("Integration - MongoDbUserRepository", () => {
     expect(result.props.userName).toEqual("user name");
     expect(result.props.libraryId).toEqual("9999");
   });
-  it("shoul throw if userId does not exist", async () => {
+  it("should throw if userId does not exist", async () => {
     const result = () => mongoDbUserRepository.getById("false ID");
-    await expect(() => result()).rejects.toThrow();
+    await expect(() => result()).rejects.toThrow(UserErrors.UserNotFound);
   })
   it("should throw if user does not exist", async () => {
     const result = () => mongoDbUserRepository.getById("false ID");
-    await expect(() => result()).rejects.toThrow();
+    await expect(() => result()).rejects.toThrow(UserErrors.UserNotFound);
   });
 
   it("should update a user", async () => {

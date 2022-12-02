@@ -3,6 +3,7 @@ import {TrackRepository} from "../../../core/repositories/TrackRepository";
 import {AlbumModel} from "./models/album";
 import {Track, TrackProperties} from "../../../core/Entities/Track";
 import {TrackModel} from "./models/track";
+import {TrackErrors} from "../../../core/errors/TrackErrors";
 const mongoDbTrackMapper = new MongoDbTrackMapper()
 
 export class MongoDbTrackRepository implements TrackRepository {
@@ -18,7 +19,7 @@ export class MongoDbTrackRepository implements TrackRepository {
     async getByUserId(userId: string): Promise<Track> {
         const track = await TrackModel.findOne({userId: userId});
         if (!track) {
-            throw new Error('Track not found');
+            throw new TrackErrors.TrackNotFound;
         }
 
         return mongoDbTrackMapper.toTrack(track)
@@ -74,7 +75,7 @@ export class MongoDbTrackRepository implements TrackRepository {
     async getById(trackId: string): Promise<Track> {
         const track = await TrackModel.findOne({trackId: trackId});
         if (!track) {
-            throw new Error('Track not found');
+            throw new TrackErrors.TrackNotFound;
         }
         return mongoDbTrackMapper.toTrack(track)
     }
@@ -82,7 +83,7 @@ export class MongoDbTrackRepository implements TrackRepository {
     async getByTitle(trackTitle: string): Promise<Track> {
         const track = await TrackModel.findOne({trackTitle: trackTitle});
         if (!track) {
-            throw new Error('Track not found');
+            throw new TrackErrors.TrackNotFound;
         }
         return mongoDbTrackMapper.toTrack(track)
 

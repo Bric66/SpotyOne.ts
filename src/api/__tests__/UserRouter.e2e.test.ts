@@ -1,6 +1,6 @@
 import "dotenv/config";
 import { sign } from "jsonwebtoken";
-import express, {request} from "express";
+import express from "express";
 import { v4 } from "uuid";
 import mongoose from "mongoose";
 import { userRouter } from "../routes/user";

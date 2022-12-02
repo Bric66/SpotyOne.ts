@@ -3,6 +3,7 @@ import { User } from "../../Entities/User";
 import { InMemoryUserRepository } from "../adapters/repositories/InMemoryUserRepository";
 import { UuidGateway } from "../adapters/gateways/UuidGateway";
 import { BcryptGateway } from "../adapters/gateways/BcryptGateway";
+import {UserErrors} from "../../errors/UserErrors";
 
 const dbCreateUser = new Map<string, User>();
 
@@ -20,6 +21,10 @@ describe("When I call CreateUser ====>", () => {
     );
   });
 
+  afterEach(() => {
+    dbCreateUser.clear()
+  })
+
   it("should create user", async () => {
     const result = await createUser.execute({
       userName: "JOJO",
@@ -31,12 +36,16 @@ describe("When I call CreateUser ====>", () => {
   });
 
   it("should throw if user already exists", async () => {
-    const result = () =>
-      createUser.execute({
-        userName: "JOJO",
-        email: "jojo@gmail.com",
-        password: "1234",
-      });
-    await expect(() => result()).rejects.toThrow();
+    await createUser.execute({
+      userName: "JOJO",
+      email: "jojo@gmail.com",
+      password: "1234",
+    });
+    const result = () => createUser.execute({
+          userName: "JOJO",
+          email: "jojo@gmail.com",
+          password: "1234",
+        });
+     await expect( () =>result()).rejects.toThrow(UserErrors.UserAlreadyExists);
   });
 });
