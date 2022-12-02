@@ -2,6 +2,7 @@ import {Album} from "../../../core/Entities/Album";
 import {AlbumRepository} from "../../../core/repositories/AlbumRepository";
 import {AlbumModel} from "./models/album";
 import {MongoDbAlbumMapper} from "./mappers/MongoDbAlbumMapper";
+import {AlbumErrors} from "../../../core/errors/AlbumErrors";
 
 const mongoDbAlbumMapper = new MongoDbAlbumMapper();
 
@@ -55,7 +56,7 @@ export class MongoDbAlbumRepository implements AlbumRepository {
 
         const album = await AlbumModel.findOne({albumId: albumId});
         if (!album) {
-            throw new Error("Album not found");
+            throw new AlbumErrors.AlbumNotFound();
         }
         return mongoDbAlbumMapper.toDomain(album);
     }
@@ -63,7 +64,7 @@ export class MongoDbAlbumRepository implements AlbumRepository {
     async getAlbumByUserId(userId: string): Promise<Album> {
         const album = await AlbumModel.findOne({userId: userId});
         if (!album) {
-            throw new Error("Album not found");
+            throw new AlbumErrors.AlbumNotFound();
         }
         return mongoDbAlbumMapper.toDomain(album);
     }
@@ -71,7 +72,7 @@ export class MongoDbAlbumRepository implements AlbumRepository {
     async getAlbumByTitle(albumTitle: string): Promise<Album> {
         const album = await AlbumModel.findOne({albumTitle: albumTitle});
         if (!album) {
-            throw new Error("Album not found");
+            throw new AlbumErrors.AlbumNotFound();
         }
         return mongoDbAlbumMapper.toDomain(album);
     }

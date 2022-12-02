@@ -2,6 +2,7 @@ import { LibraryRepository } from "../../repositories/LibraryRepository";
 import { TrackRepository } from "../../repositories/TrackRepository";
 import { UseCase } from "../Usecase";
 import { Library } from "../../Entities/Library";
+import {LibraryErrors} from "../../errors/LibraryErrors";
 
 export type AddTrackToLibraryInput = {
   userId: string;
@@ -21,7 +22,7 @@ export class AddTrackToLibrary
     const library = await this.libraryRepository.getByUserId(input.userId);
     const isTrackAlreadyAdded = library.canAddTrack(track.props.trackId);
     if (!isTrackAlreadyAdded) {
-      throw new Error("track already added");
+      throw new LibraryErrors.TrackAlreadyAdded;
     }
 
     library.addTrack({

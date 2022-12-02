@@ -3,6 +3,7 @@ import {User} from "../../Entities/User";
 import {UserRepository} from "../../repositories/UserRepository";
 import {IdGateway} from "../../gateways/IdGateway";
 import {PasswordGateway} from "../../gateways/PasswordGateway";
+import {UserErrors} from "../../errors/UserErrors";
 
 export type UserInput = {
     userName: string;
@@ -20,7 +21,7 @@ export class CreateUser implements UseCase<UserInput, User> {
     async execute(input: UserInput): Promise<User> {
         const userExists = await this.userRepository.getByEmail(input.email.toLowerCase().trim());
         if (userExists) {
-            throw new Error('user already exists')
+            throw new UserErrors.UserAlreadyExists ()
         }
 
         const id = this.idGateway.generate();

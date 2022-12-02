@@ -2,6 +2,7 @@ import { MongoDbLibraryMapper } from './mappers/MongoDbLibraryMapper';
 import { LibraryModel } from "./models/library";
 import { Library } from "../../../core/Entities/Library";
 import { LibraryRepository } from "./../../../core/repositories/LibraryRepository";
+import {LibraryErrors} from "../../../core/errors/LibraryErrors";
 const mongoDbLibraryMapper = new MongoDbLibraryMapper()
 
 export class MongoDbLibraryRepository implements LibraryRepository {
@@ -17,7 +18,7 @@ export class MongoDbLibraryRepository implements LibraryRepository {
   async getByUserId(userId: string): Promise<Library> {
     const library = await LibraryModel.findOne({ userId: userId });
     if (!library) {
-      throw new Error("cannto found library");
+      throw new LibraryErrors.LibraryNotFound;
     }
     return mongoDbLibraryMapper.toLibrary(library)
     

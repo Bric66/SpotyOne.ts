@@ -2,6 +2,7 @@ import {InMemoryAlbumRespository} from "../adapters/repositories/InMemoryAlbumRe
 import {UuidGateway} from "./../adapters/gateways/UuidGateway";
 import {Album} from "../../Entities/Album";
 import {CreateAlbum} from "../../Usecases/album/CreateAlbum";
+import {AlbumErrors} from "../../errors/AlbumErrors";
 
 const db = new Map<string, Album>();
 
@@ -63,6 +64,6 @@ describe("Unit - CreateAlbum", () => {
             tracks: album.props.tracks,
             userId: album.props.userId,
         });
-        await expect(async () => result()).rejects.toThrow();
+        await expect(async () => result()).rejects.toThrow(AlbumErrors.AlbumAlreadyExists);
     });
 });

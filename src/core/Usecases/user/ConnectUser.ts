@@ -2,6 +2,7 @@ import {UseCase} from "../Usecase";
 import {User} from "../../Entities/User";
 import {UserRepository} from "../../repositories/UserRepository";
 import {PasswordGateway} from "../../gateways/PasswordGateway";
+import {UserErrors} from "../../errors/UserErrors";
 
 export type UserInput = {
     email: string,
@@ -15,17 +16,16 @@ export class ConnectUser implements UseCase<UserInput, User> {
     }
 
     async execute(input: UserInput): Promise<User> {
-        const userExists =await this.userRepository.getByEmail(input.email.toLowerCase().trim());
+        const userExists = await this.userRepository.getByEmail(input.email.toLowerCase().trim());
         if (!userExists) {
-            throw new Error('user not found')
+            throw new UserErrors.UserNotFound()
         }
         const hash = userExists.props.password
 
         const comparePasswords = this.passwordGateway.decrypt(input.password, hash)
         if (!comparePasswords) {
-            throw new Error('wrong password')
+            throw new UserErrors.WrongPassword()
         }
-        console.log('User connected successfully');
         return userExists;
     }
 }

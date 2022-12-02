@@ -2,6 +2,7 @@ import { InMemoryTrackRepository } from "./../adapters/repositories/InMemoryTrac
 import { CreateTrack } from "./../../Usecases/track/CreateTrack";
 import { UuidGateway } from "../adapters/gateways/UuidGateway";
 import { Track } from "../../Entities/Track";
+import {TrackErrors} from "../../errors/TrackErrors";
 
 const db = new Map<string, Track>();
 
@@ -43,6 +44,6 @@ describe("unit - CreateTrack", () => {
         file: "http://track.example",
         trackTitle: "new title",
       });
-    expect(() => result()).rejects.toThrow();
+    expect(() => result()).rejects.toThrow(TrackErrors.TrackAlreadyExists);
   });
 });

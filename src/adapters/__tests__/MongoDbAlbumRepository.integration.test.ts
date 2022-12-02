@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import {Album} from "../../core/Entities/Album";
 import {MongoDbAlbumRepository} from "../repositories/mongoDb/MongoDbAlbumRepository";
 import {AlbumModel} from "../repositories/mongoDb/models/album";
+import {AlbumErrors} from "../../core/errors/AlbumErrors";
 
 describe('Integration - MongoDbAlbumRepository', () => {
 
@@ -146,7 +147,7 @@ describe('Integration - MongoDbAlbumRepository', () => {
 
     it("Should throw if album not found by id", async () => {
         const result = () => mongoDbAlbumRepository.getAlbumById("wrong id");
-        await expect(async () => result()).rejects.toThrow();
+        await expect(async () => result()).rejects.toThrow(AlbumErrors.AlbumNotFound);
     })
 
     it("Should get album by userId", async () => {
@@ -156,7 +157,7 @@ describe('Integration - MongoDbAlbumRepository', () => {
 
     it("Should throw if album not found by userId", async () => {
         const result = () => mongoDbAlbumRepository.getAlbumByUserId("wrong id");
-        await expect(async () => result()).rejects.toThrow();
+        await expect(async () => result()).rejects.toThrow(AlbumErrors.AlbumNotFound);
     })
 
     it("Should get album by title", async () => {
@@ -166,7 +167,7 @@ describe('Integration - MongoDbAlbumRepository', () => {
 
     it("Should throw if album not found by title", async () => {
         const result = () => mongoDbAlbumRepository.getAlbumByTitle("wrong title");
-        await expect(async () => result()).rejects.toThrow();
+        await expect(async () => result()).rejects.toThrow(AlbumErrors.AlbumNotFound);
     })
 
     it("Should get all albums", async () => {
